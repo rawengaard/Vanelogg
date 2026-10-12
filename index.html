@@ -44,16 +44,18 @@ h2{font-size:1.05rem;margin:0}
 .badge{font-size:.8rem;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--hab-soft);color:var(--hab)}
 .badge.bad{background:var(--bad-soft);color:var(--bad)}
 .row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
-.row:first-of-type{border-top:0}
+h2+.row,.ghead+.row{border-top:0}
 .row .info{flex:1;min-width:0}
 .row .name{font-weight:600;overflow-wrap:anywhere}
-.row .sub{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:4px}
+.row .sub{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 .row.done .sub{color:var(--hab);font-weight:600}
 .stepper{display:flex;align-items:center;gap:4px}
 .stepper button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.4rem;line-height:1}
 .stepper button.plus{background:var(--hab);border-color:var(--hab);color:#fff}
 .bad .stepper button.plus,.row.badrow .stepper button.plus{background:var(--bad);border-color:var(--bad)}
 @media (prefers-color-scheme:dark){.stepper button.plus{color:#062b27}.row.badrow .stepper button.plus{color:#2b1b00}}
+.stepper button.plus.secondary{background:var(--bg);border-color:var(--line);color:var(--ink)}
+.row.done .stepper button.plus.secondary{border-color:var(--hab)}
 .stepper button:disabled{opacity:.35}
 .cnt{min-width:46px;height:44px;text-align:center;font-size:1.2rem;font-weight:700;border:1px solid transparent;border-radius:10px;background:transparent;-moz-appearance:textfield}
 .cnt::-webkit-outer-spin-button,.cnt::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
@@ -93,7 +95,7 @@ input.txt{width:100%;min-height:46px;border:1px solid var(--line);border-radius:
 .minrow output{font-size:1.2rem;font-weight:700;min-width:2ch;text-align:center}
 .minrow button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.4rem}
 .alist .item{display:flex;align-items:center;gap:6px;border-top:1px solid var(--line);min-height:56px}
-.alist .item:first-child{border-top:0}
+.alist .item:first-child,.ghead+.item{border-top:0}
 .alist .item .main{flex:1;min-width:0;text-align:left;display:flex;align-items:center;gap:10px;background:none;border:0;padding:12px 0;min-height:56px}
 .alist .item .mv{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none}
 .alist .item .mv:disabled{opacity:.3}
@@ -102,6 +104,52 @@ input.txt{width:100%;min-height:46px;border:1px solid var(--line);border-radius:
 .warn{background:var(--bad-soft);color:var(--bad);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:.9rem}
 .note{font-size:.88rem;color:var(--muted);margin:8px 0 0}
 .hidden{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+textarea.txt{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg);resize:vertical;min-height:110px;font:inherit}
+.qlog{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+.row.rest .name{color:var(--muted)}
+.streak{display:inline-flex;align-items:center;gap:4px;font-size:.82rem;font-weight:600;color:var(--bad)}
+.notebtn{display:flex;align-items:center;gap:5px;background:none;border:0;padding:4px 0;min-height:32px;color:var(--muted);font-size:.85rem;max-width:100%;text-align:left}
+.notebtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.notebtn.has{color:var(--ink)}
+.notebtn.has svg{color:var(--hab)}
+.prog{display:flex;align-items:center;gap:14px}
+.prog .t{font-weight:650;font-size:1.05rem}
+.prog .s{font-size:.88rem;color:var(--muted)}
+.banner{background:var(--bad-soft);color:var(--ink);border-radius:14px;padding:12px;margin-bottom:12px;font-size:.92rem}
+.banner .bt{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.hint{font-size:.82rem;color:var(--muted);text-align:center;margin:4px 8px 0}
+.gwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+table.gt{border-collapse:separate;border-spacing:3px;width:100%}
+.gt th{font-weight:600;font-size:.72rem;color:var(--muted);text-align:center;padding:0;line-height:1.15}
+.gt th.today{color:var(--hab);text-decoration:underline}
+.gt th.rn{text-align:left;position:sticky;left:0;background:var(--card);z-index:1;width:74px;min-width:66px;max-width:84px;font-size:.8rem;color:var(--ink);padding-right:4px;overflow-wrap:break-word;hyphens:auto}
+.gt .gr th{text-align:left;font-size:.8rem;color:var(--muted);padding-top:8px}
+.gt .gr th span{display:inline-flex;align-items:center;gap:6px;position:sticky;left:0}
+.gt td{padding:0;text-align:center}
+.gt td.sum{font-weight:700;font-size:.85rem;min-width:18px;padding-left:2px}
+.cell{width:100%;min-width:25px;height:36px;border-radius:7px;border:1.5px solid var(--line);background:transparent;display:grid;place-items:center;font-size:.74rem;font-weight:700;padding:0;position:relative;color:#fff}
+.gt.m .cell{min-width:24px;height:32px}
+.cell.done{background:var(--hab);border-color:var(--hab)}
+.cell.bad{background:var(--bad);border-color:var(--bad)}
+.cell.part{background:var(--hab-soft);border-color:var(--hab);color:var(--hab)}
+.cell.none{color:transparent}
+.cell.rest{border-style:dashed;opacity:.5}
+.cell.na{border-color:transparent;background:repeating-linear-gradient(135deg,var(--line) 0 2px,transparent 2px 5px);opacity:.5;pointer-events:none}
+.cell.hasnote::after{content:"";position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--ink);border:1px solid var(--card)}
+.cell.sel{outline:3px solid var(--focus);outline-offset:1px}
+@media (prefers-color-scheme:dark){.cell.done{color:#062b27}.cell.bad{color:#2b1b00}}
+.ghead{display:flex;align-items:center;gap:8px;font-weight:650;font-size:.9rem;color:var(--muted);margin:14px 0 2px}
+.ghead .gc{margin-left:auto;font-weight:600;font-size:.82rem}
+.ghead svg{flex:none}
+.btn.sm{min-height:40px;padding:0 12px;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{min-height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:flex;align-items:center;gap:6px;font-weight:600}
+.chips button[aria-pressed=true]{background:var(--hab-soft);border-color:var(--hab);color:var(--hab)}
+.igrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.igrid button{min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid var(--line);border-radius:12px;background:var(--bg);font-size:.7rem;font-weight:600;color:var(--muted);padding:4px 2px}
+.igrid button[aria-pressed=true]{background:var(--hab-soft);border-color:var(--hab);color:var(--hab)}
+.ghd{display:flex;justify-content:space-between;align-items:center}
 .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .legend button{display:flex;align-items:center;gap:6px;min-height:40px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:.88rem;font-weight:600;max-width:100%}
 .legend button[aria-pressed=false]{opacity:.45;text-decoration:line-through}
@@ -144,10 +192,10 @@ const shortDate = s => { const d = parse(s); return `${DAYS3[d.getDay()]} ${d.ge
 /* ---------- Lagring ---------- */
 const KEY = 'vanelogg.v1';
 let storageOK = true;
-let state = { v:1, activities:[], logs:{}, prefs:{ range:'week', kind:'bar' } };
+let state = { v:1, activities:[], groups:[], logs:{}, notes:{}, meta:{ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, prefs:{ range:'week', kind:'bar' } };
 try {
   const raw = localStorage.getItem(KEY);
-  if (raw) { const p = JSON.parse(raw); if (p && Array.isArray(p.activities) && p.logs) state = Object.assign(state, p, { prefs: Object.assign(state.prefs, p.prefs||{}) }); }
+  if (raw) { const p = JSON.parse(raw); if (p && Array.isArray(p.activities) && p.logs) state = Object.assign(state, p, { prefs: Object.assign(state.prefs, p.prefs||{}) }); if (!Array.isArray(state.groups)) state.groups = []; if (!state.notes || typeof state.notes !== 'object') state.notes = {}; state.meta = Object.assign({ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, state.meta || {}); }
 } catch(e) { storageOK = false; }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { storageOK = false; }
@@ -155,8 +203,20 @@ function save() {
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e) {}
 
 /* ---------- Dataregler ---------- */
-const habits = () => state.activities.filter(a => a.type === 'habit');
-const bads = () => state.activities.filter(a => a.type === 'bad');
+const live = type => state.activities.filter(a => a.type === type && !a.archived);
+const habits = () => live('habit');
+const bads = () => live('bad');
+/* Er aktiviteten i bruk på en gitt dag? (opprettet, ikke arkivert, ikke i en arkivpause) */
+const activeOn = (a, day) => day >= a.created && !(a.archived && day >= a.archived) && !(a.gaps || []).some(g => day >= g.from && day < g.to);
+const visibleOn = (type, day) => state.activities.filter(a => a.type === type && (!a.archived || activeOn(a, day)));
+function grouped(list) {
+  const out = [];
+  state.groups.forEach(g => { const it = list.filter(a => a.group === g.id); if (it.length) out.push({ g, items: it }); });
+  const rest = list.filter(a => !a.group || !state.groups.some(g => g.id === a.group));
+  if (rest.length) out.push({ g: null, items: rest });
+  return out;
+}
+const orderedAll = type => grouped(state.activities.filter(a => a.type === type)).flatMap(x => x.items);
 const getCount = (id, day) => (state.logs[day] && state.logs[day][id]) || 0;
 function setCount(id, day, n) {
   n = Math.max(0, Math.min(999, Math.floor(Number(n) || 0)));
@@ -166,21 +226,70 @@ function setCount(id, day, n) {
   if (a && n > 0 && day < a.created) a.created = day;   // logger bakover i tid -> aktiviteten fantes da
   save();
 }
+const sched = a => a.sched || { mode:'daily' };
+/* "Skal gjøres" denne dagen: hver dag, eller valgte ukedager. Ukemål-vaner teller ikke i dagsprosenten. */
+const isDue = (a, day) => { if (a.type !== 'habit') return false; const s = sched(a); if (s.mode === 'week') return false; if (s.mode === 'days') return (s.days || []).includes(parse(day).getDay()); return true; };
+const weekStart = d => addDays(d, -((d.getDay() + 6) % 7));
+const weekCount = (a, day) => { const ws = weekStart(parse(day)); let n = 0; for (let i = 0; i < 7; i++) if (getCount(a.id, ymd(addDays(ws, i))) >= a.target) n++; return n; };
+function streakOf(a) {
+  const s = sched(a);
+  if (s.mode === 'week') {
+    let n = 0; const ws = weekStart(new Date());
+    for (let i = 0; i < 150; i++) { const w = addDays(ws, -7 * i); if (ymd(addDays(w, 6)) < a.created) break;
+      if (weekCount(a, ymd(w)) >= s.n) n++; else if (i > 0) break; }
+    return { n, unit: 'uker' };
+  }
+  let n = 0;
+  for (let i = 0; i < 900; i++) { const d = ymd(addDays(new Date(), -i)); if (d < a.created) break;
+    if (!activeOn(a, d) || !isDue(a, d)) continue;
+    if (getCount(a.id, d) >= a.target) n++; else if (i > 0) break; }
+  return { n, unit: 'dager' };
+}
+function daysWithout(a) {
+  if (getCount(a.id, todayStr()) > 0) return 0;
+  for (let i = 1; i < 900; i++) { const d = ymd(addDays(new Date(), -i)); if (d < a.created) return i - 1; if (getCount(a.id, d) > 0) return i; }
+  return 0;
+}
+const noteOf = (id, day) => (state.notes[day] && state.notes[day][id]) || '';
+function setNote(id, day, text) {
+  text = (text || '').trim();
+  if (text) (state.notes[day] = state.notes[day] || {})[id] = text;
+  else if (state.notes[day]) { delete state.notes[day][id]; if (!Object.keys(state.notes[day]).length) delete state.notes[day]; }
+  save();
+}
+function statusText(a, d) {
+  const c = getCount(a.id, d);
+  if (d > todayStr()) return 'fremtiden';
+  if (!activeOn(a, d) && !c) return 'ikke i bruk';
+  if (a.type === 'bad') return c ? `gjort (${c} ${c===1?'gang':'ganger'})` : 'ikke gjort';
+  if (!c) return (sched(a).mode === 'days' && !isDue(a, d)) ? 'hviledag' : 'ikke gjort';
+  if (c < a.target) return `${c} av ${a.target}, ikke nådd`;
+  const v = Math.floor(c / a.target);
+  return (v === 1 ? 'oppnådd' : `mål ×${v}`) + ` (${c} ${c===1?'gang':'ganger'})`;
+}
+const daysBetween = (a, b) => Math.round((parse(b) - parse(a)) / 86400000);
+function backupDue() {
+  const m = state.meta, t = todayStr();
+  if (m.snoozeUntil && t < m.snoozeUntil) return null;
+  const days = Object.keys(state.logs).sort(); if (!days.length) return null;
+  if (!m.lastBackup) return daysBetween(days[0], t) >= 3 ? 'aldri' : null;
+  const n = daysBetween(m.lastBackup, t); return n >= 7 ? n : null;
+}
 function habitDay(day) {
-  const hs = habits().filter(a => a.created <= day);
+  const hs = state.activities.filter(a => a.type === 'habit' && activeOn(a, day) && isDue(a, day));
   if (!hs.length) return null;
   const reached = hs.filter(a => getCount(a.id, day) >= a.target).length;
   return { reached, total: hs.length, pct: Math.round(reached / hs.length * 100) };
 }
 function badDay(day) {
-  const bs = bads().filter(a => a.created <= day);
+  const bs = state.activities.filter(a => a.type === 'bad' && activeOn(a, day));
   if (!bs.length) return null;
   return { n: bs.reduce((s,a) => s + getCount(a.id, day), 0) };
 }
-const dayHasLog = day => !!(state.logs[day] && Object.keys(state.logs[day]).some(id => state.activities.some(a => a.id === id)));
+const dayHasLog = day => ['logs','notes'].some(k => state[k][day] && Object.keys(state[k][day]).some(id => state.activities.some(a => a.id === id)));
 
 /* ---------- UI-tilstand ---------- */
-const ui = { tab:'today', day: todayStr(), offset:0, edit:null, hide:{} };
+const ui = { tab:'today', day: todayStr(), offset:0, edit:null, gedit:null, note:null, hide:{} };
 let lastToday = todayStr();
 
 /* ---------- Ikoner ---------- */
@@ -193,8 +302,33 @@ const I = {
   check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>',
   cal:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
   trash:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+  flame:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 .5 1.5 1.5 2 2 2 0-3-1-5 1-8z"/></svg>',
+  note:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v12l-5 5H5z"/><path d="M14 21v-5h5M8 9h8M8 13h4"/></svg>',
   edit:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>'
 };
+
+const GI = {
+  star:['Stjerne','<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'],
+  book:['Lesing','<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/>'],
+  knit:['Håndarbeid','<circle cx="11" cy="12" r="7"/><path d="M5 9c4 1 9 1 12-2M4.5 13c4 1.5 9 1.5 13-1M7 18c3 0 7-1 9-4"/><path d="M18 14c2 2 3 4 3 6"/>'],
+  move:['Mosjon','<path d="M3 12h4l3-8 4 16 3-8h4"/>'],
+  gym:['Styrke','<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>'],
+  food:['Mat/drikke','<path d="M6 3v7a2 2 0 0 0 4 0V3M8 3v18"/><path d="M17 21V3c-2.5 1.5-3 5-3 8h3"/>'],
+  people:['Sosialt','<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.5 2 4.5 4.5"/>'],
+  home:['Husarbeid','<path d="M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6"/>'],
+  moon:['Søvn','<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>'],
+  water:['Vann','<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>'],
+  heart:['Helse','<path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1z"/>'],
+  leaf:['Ro/natur','<path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19c3-5 6-8 10-10"/>'],
+  work:['Jobb','<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'],
+  music:['Musikk','<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>'],
+  money:['Økonomi','<circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2 0 0 0-2.5-1.5c-1.5 0-2.5.8-2.5 2s1 1.8 2.5 2 2.5.8 2.5 2-1 2-2.5 2A2.5 2 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/>'],
+  pill:['Medisin','<rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.5 14.5l5-5"/>'],
+  phone:['Skjerm','<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/>'],
+  sun:['Morgen','<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'],
+  tree:['Ute','<path d="M12 21v-6M12 15c-4 0-6-2.5-6-5.5 0-2 1.5-3.5 3.5-3.5C9.5 4 11 3 12 3s2.5 1 2.5 3c2 0 3.5 1.5 3.5 3.5 0 3-2 5.5-6 5.5z"/>']
+};
+const gicon = (k, sz = 20) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(GI[k] || GI.star)[1]}</svg>`;
 
 /* ---------- Visninger ---------- */
 function renderTabs() {
@@ -205,9 +339,7 @@ function renderTabs() {
 
 function renderToday() {
   const day = ui.day, isToday = day === todayStr();
-  const hs = habits(), bs = bads();
-  const hd = habitDay(day);
-  const reachedN = hs.filter(a => getCount(a.id, day) >= a.target).length;
+  const hs = visibleOn('habit', day), bs = visibleOn('bad', day);
   let h = `<div class="top">
     <button class="iconbtn" data-act="day" data-d="-1" aria-label="Forrige dag">${I.left}</button>
     <div class="datehead"><div class="d">${cap1(longDate(day))}</div>
@@ -220,40 +352,72 @@ function renderToday() {
     ${dayHasLog(day) ? `<button class="linkbtn danger" data-act="clearday">${I.trash} Slett dagens logg</button>` : ''}
   </div>`;
   if (!storageOK) h += `<div class="warn" role="alert">Nettleseren tillater ikke lagring. Data blir borte når du lukker appen.</div>`;
-  if (!state.activities.length) {
+  if (!state.activities.filter(a => !a.archived).length) {
     h += `<div class="card empty"><h2 style="justify-content:center">Ingen aktiviteter ennå</h2>
       <p class="muted">Legg til vaner du vil bygge og uvaner du vil holde oversikt over.</p>
       <button class="btn primary block" data-act="newact">Legg til aktivitet</button>
       <button class="btn block" data-act="examples">Prøv med eksempler</button></div>`;
     return h;
   }
+  const due = hs.filter(a => isDue(a, day));
+  const reachedN = due.filter(a => getCount(a.id, day) >= a.target).length;
+  const bdue = backupDue();
+  if (bdue) h += `<div class="banner" role="region" aria-label="Sikkerhetskopi"><b>${bdue === 'aldri' ? 'Du har ikke tatt sikkerhetskopi ennå.' : 'Det er ' + bdue + ' dager siden sist sikkerhetskopi.'}</b>
+    Dataene ligger bare på denne enheten.<div class="bt"><button class="btn sm primary" data-act="export">Lagre sikkerhetskopi</button><button class="btn sm" data-act="snooze">Senere</button></div></div>`;
+  if (due.length) {
+    const pct = reachedN / due.length, R = 24, C = 2 * Math.PI * R;
+    h += `<section class="card prog" aria-label="Fremdrift"><svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true">
+      <circle cx="30" cy="30" r="${R}" fill="none" stroke="var(--line)" stroke-width="7"/>
+      <circle cx="30" cy="30" r="${R}" fill="none" stroke="var(--hab)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(C*pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 30 30)"/>
+      <text x="30" y="34" text-anchor="middle" font-size="13" font-weight="700" style="fill:var(--ink)">${Math.round(pct*100)}%</text></svg>
+      <div><div class="t">${reachedN === due.length ? 'Alt gjort ' + (isToday ? 'i dag' : 'denne dagen') : reachedN + ' av ' + due.length + ' vaner nådd'}</div>
+      <div class="s">${reachedN === due.length ? 'Bra jobba!' : (due.length - reachedN) + ' igjen ' + (isToday ? 'i dag' : 'denne dagen')}</div></div></section>`;
+  }
+  const gHead = (g, items) => {
+    if (!state.groups.length) return '';
+    const hab = items.length && items[0].type === 'habit';
+    const its = items.filter(a => isDue(a, day));
+    const cnt = hab && its.length ? `<span class="gc">${its.filter(a => getCount(a.id, day) >= a.target).length}/${its.length}</span>` : '';
+    return `<div class="ghead">${g ? gicon(g.icon) : ''}<span>${g ? esc(g.name) : 'Andre'}</span>${cnt}</div>`;
+  };
+  const noteBtn = a => { const n = noteOf(a.id, day);
+    return `<button class="notebtn ${n?'has':''}" data-act="note" data-id="${a.id}" aria-label="${n ? 'Rediger notat for ' : 'Legg til notat for '}${esc(a.name)}">${I.note}<span>${n ? esc(n) : 'Notat'}</span></button>`; };
   if (hs.length) {
-    h += `<section class="card" aria-labelledby="hh"><h2 id="hh">Vaner <span class="badge">${reachedN} av ${hs.length} nådd</span></h2>`;
-    h += hs.map(a => {
-      const c = getCount(a.id, day), done = c >= a.target;
-      return `<div class="row ${done?'done':''}">
-        <div class="info"><div class="name">${esc(a.name)}</div>
-        <div class="sub">${done ? I.check + ' Nådd' : 'Minst ' + a.target + (a.target>1?' ganger':' gang')}${c>a.target?' · ' + c + ' totalt':''}</div></div>
-        ${stepper(a, c)}</div>`;
-    }).join('') + `</section>`;
+    h += `<section class="card" aria-labelledby="hh"><h2 id="hh">Vaner <span class="badge">${due.length ? reachedN + ' av ' + due.length + ' nådd' : 'ingen planlagt'}</span></h2>`;
+    h += grouped(hs).map(({ g, items }) => gHead(g, items) + items.map(a => {
+      const c = getCount(a.id, day), done = c >= a.target, s = sched(a), isWeek = s.mode === 'week', rest = !isWeek && !isDue(a, day);
+      const wk = isWeek ? weekCount(a, day) : 0;
+      let sub;
+      if (done) sub = I.check + ' Nådd'; else if (isWeek) sub = wk + ' av ' + s.n + ' denne uka'; else if (rest) sub = 'Hviledag'; else sub = 'Minst ' + a.target + (a.target>1?' ganger':' gang');
+      if (done && isWeek) sub += ' · ' + wk + ' av ' + s.n + ' denne uka';
+      if (c > a.target) sub += ' · ' + c + ' totalt';
+      let st = '';
+      if (isToday) { const k = streakOf(a); if (k.n >= 2) st = `<span class="streak">${I.flame} ${k.n} ${k.unit} på rad</span>`; }
+      return `<div class="row ${done?'done':''} ${rest?'rest':''}">
+        <div class="info"><div class="name qlog" data-id="${a.id}">${esc(a.name)}</div>
+        <div class="sub"><span style="display:inline-flex;align-items:center;gap:4px">${sub}</span>${st}</div>${noteBtn(a)}</div>
+        ${stepper(a, c, done)}</div>`;
+    }).join('')).join('') + `</section>`;
   }
   if (bs.length) {
     const tot = bs.reduce((s,a) => s + getCount(a.id, day), 0);
     h += `<section class="card" aria-labelledby="bh"><h2 id="bh">Uvaner <span class="badge bad">${tot} registrert</span></h2>`;
-    h += bs.map(a => {
+    h += grouped(bs).map(({ g, items }) => gHead(g, items) + items.map(a => {
       const c = getCount(a.id, day);
-      return `<div class="row badrow"><div class="info"><div class="name">${esc(a.name)}</div>
-        <div class="sub">${c ? c + (c>1?' ganger':' gang') : 'Ingen'}</div></div>${stepper(a, c)}</div>`;
-    }).join('') + `</section>`;
+      let st = ''; if (isToday) { const w = daysWithout(a); if (w >= 1) st = `<span class="streak" style="color:var(--hab)">${I.check} ${w} ${w===1?'dag':'dager'} uten</span>`; }
+      return `<div class="row badrow"><div class="info"><div class="name qlog" data-id="${a.id}">${esc(a.name)}</div>
+        <div class="sub"><span>${c ? c + (c>1?' ganger':' gang') : 'Ingen'}</span>${st}</div>${noteBtn(a)}</div>${stepper(a, c, false)}</div>`;
+    }).join('')).join('') + `</section>`;
   }
+  h += `<p class="hint">Tips: dobbelttrykk eller hold inne på et navn for +1. Sveip sideveis for å bytte dag.</p>`;
   return h;
 }
-function stepper(a, c) {
+function stepper(a, c, done) {
   const n = esc(a.name);
   return `<div class="stepper">
     <button data-act="dec" data-id="${a.id}" aria-label="Ett mindre: ${n}" ${c?'':'disabled'}>−</button>
     <input class="cnt" type="number" inputmode="numeric" min="0" max="999" value="${c}" data-id="${a.id}" aria-label="Antall for ${n}">
-    <button class="plus" data-act="inc" data-id="${a.id}" aria-label="Ett til: ${n}">+</button></div>`;
+    <button class="plus${done ? ' secondary' : ''}" data-act="inc" data-id="${a.id}" aria-label="Ett til: ${n}">+</button></div>`;
 }
 
 /* --- Trender --- */
@@ -371,15 +535,56 @@ function renderTrends() {
       <button class="iconbtn" data-act="off" data-d="1" aria-label="${month?'Neste måned':'Neste uke'}" ${canNext?'':'disabled'}>${I.right}</button></div>
     <div class="seg" role="group" aria-label="Diagramtype">
       <button data-act="kind" data-k="bar" aria-pressed="${kind==='bar'}">Stolper</button>
-      <button data-act="kind" data-k="line" aria-pressed="${kind==='line'}">Linje</button></div></div>`;
+      <button data-act="kind" data-k="line" aria-pressed="${kind==='line'}">Linje</button>
+      <button data-act="kind" data-k="grid" aria-pressed="${kind==='grid'}">Ruter</button></div></div>`;
 
+  if (kind === 'grid') {
+    const cellOf = (a, d) => {
+      if (d > today) return { st: 'na' };
+      const c = getCount(a.id, d);
+      if (!activeOn(a, d) && !c) return { st: 'na' };
+      if (a.type === 'bad') return { st: c > 0 ? 'bad' : 'none', c };
+      if (c >= a.target) return { st: 'done', c, v: Math.floor(c / a.target) };
+      if (c > 0) return { st: 'part', c };
+      return { st: (sched(a).mode === 'days' && !isDue(a, d)) ? 'rest' : 'none', c };
+    };
+    const mk = (title, type, bad) => {
+      const list = orderedAll(type).filter(a => days.some(d => cellOf(a, d).st !== 'na'));
+      h += `<section class="card"><h2>${title} <span class="badge ${bad?'bad':''}">${list.length} aktivitet${list.length===1?'':'er'}</span></h2>`;
+      if (!list.length) { h += `<p class="muted" style="margin:0">Ingen lagt til ennå.</p></section>`; return; }
+      h += `<p class="stat">${bad ? 'Fylt rute = gjort (tall = antall ganger).' : 'Fylt = oppnådd (tall ×2, ×3 …), lys = delvis, tom = ikke gjort, stiplet = hviledag, skravert = ikke i bruk.'} Trykk på en rute for detaljer.${month ? ' Sveip sideveis for hele måneden.' : ''}</p>`;
+      h += `<div class="gwrap"><table class="gt ${month ? 'm' : 'w'}"><caption class="sr">${title}, ${esc(label)}</caption><thead><tr><th class="rn" scope="col"><span class="sr">Aktivitet</span></th>`
+        + days.map(d => { const dt = parse(d); return `<th scope="col" class="${d === today ? 'today' : ''}">${month ? '' : DAYS3[dt.getDay()] + '<br>'}${dt.getDate()}</th>`; }).join('')
+        + `<th scope="col" title="${bad ? 'Antall ganger' : 'Dager oppnådd'}">${bad ? 'Σ' : '✓'}</th></tr></thead><tbody>`;
+      grouped(list).forEach(({ g, items }) => {
+        if (state.groups.length) h += `<tr class="gr"><th colspan="${days.length + 2}" scope="colgroup"><span>${g ? gicon(g.icon, 16) : ''}${g ? esc(g.name) : 'Andre'}</span></th></tr>`;
+        items.forEach(a => {
+          let sum = 0;
+          const cells = days.map(d => {
+            const ci = cellOf(a, d); if (a.type === 'bad') sum += ci.c || 0; else if (ci.st === 'done') sum++;
+            let inner = '';
+            if (ci.st === 'done') inner = ci.v >= 2 ? ci.v : (month ? '' : I.check);
+            else if (ci.st === 'bad') inner = ci.c > 1 ? ci.c : (month ? '' : '•');
+            else if (ci.st === 'part') inner = month ? '' : ci.c;
+            return `<td><button class="cell ${ci.st} ${noteOf(a.id, d) ? 'hasnote' : ''}" data-act="gcell" data-id="${a.id}" data-d="${d}" aria-label="${esc(a.name)}, ${esc(shortDate(d))}: ${esc(statusText(a, d))}${noteOf(a.id, d) ? ', har notat' : ''}" ${ci.st === 'na' ? 'tabindex="-1" aria-disabled="true"' : ''}>${inner}</button></td>`;
+          }).join('');
+          h += `<tr><th class="rn" scope="row">${esc(a.name)}${a.archived ? ' <span class="muted">(arkivert)</span>' : ''}</th>${cells}<td class="sum">${sum}</td></tr>`;
+        });
+      });
+      h += `</tbody></table></div><div class="cap" id="cap-g-${type}" aria-live="polite" style="margin-top:8px"><span class="muted">Trykk på en rute for detaljer.</span></div></section>`;
+    };
+    mk('Vaner', 'habit', false);
+    mk('Uvaner', 'bad', true);
+    return h;
+  }
   if (kind === 'line') {
     const lvl = (a, d) => {
-      if (d > today || (d < a.created && !getCount(a.id, d))) return null;
+      if (d > today || (!activeOn(a, d) && !getCount(a.id, d)) || (sched(a).mode === 'days' && !isDue(a, d) && !getCount(a.id, d))) return null;
       const c = getCount(a.id, d);
       return a.type === 'habit' ? (c >= a.target ? Math.floor(c / a.target) : 0) : (c > 0 ? 1 : 0);
     };
-    const group = (title, list, bad) => {
+    const group = (title, full, bad) => {
+      const list = full.filter(a => days.some(d => lvl(a, d) != null));
       h += `<section class="card"><h2>${title} <span class="badge ${bad?'bad':''}">${list.length} aktivitet${list.length===1?'':'er'}</span></h2>`;
       if (!list.length) { h += `<p class="muted" style="margin:0">Ingen lagt til ennå.</p></section>`; return; }
       h += `<p class="stat">${bad ? 'Gjort eller ikke gjort, per dag.' : 'Ikke gjort, oppnådd eller mål ×2, ×3 …, per dag.'} Trykk på navnene for å skjule/vise linjer.</p>`;
@@ -408,47 +613,77 @@ function renderTrends() {
           return [x, t];
         });
         tips.push(head + ': ' + items.map(([x,t]) => x.a.name + ' ' + t).join('; '));
-        rows.push(`<div><b>${esc(head)}</b><ul>` + items.map(([x,t]) => `<li>${legendMark(x.idx)}<span>${esc(x.a.name)}: ${esc(t)}</span></li>`).join('') + `</ul></div>` +
+        rows.push(`<div><b>${esc(head)}</b><ul>` + items.map(([x,t]) => `<li>${legendMark(x.idx)}<span>${esc(x.a.name)}: ${esc(t)}${noteOf(x.a.id, d) ? ` <em>– «${esc(noteOf(x.a.id, d))}»</em>` : ''}</span></li>`).join('') + `</ul></div>` +
           (d <= today ? `<button class="linkbtn" data-act="editday" data-day="${d}">${I.edit} Rediger dag</button>` : ''));
       });
       chartTips[key] = { days, tips, rows };
       h += vis.length ? multiLineSVG(key, vis, labels, axis, month, `${title}, ${label}`, tips)
                       : `<p class="muted">Alle linjer er skjult.</p>`;
-      h += `<div class="legend">` + all.map(x => `<button data-act="legend" data-id="${x.a.id}" aria-pressed="${!ui.hide[x.a.id]}">${legendMark(x.idx)}${esc(x.a.name)}</button>`).join('') + `</div>`;
+      h += `<div class="legend">` + all.map(x => `<button data-act="legend" data-id="${x.a.id}" aria-pressed="${!ui.hide[x.a.id]}">${legendMark(x.idx)}${esc(x.a.name)}${x.a.archived ? ' (arkivert)' : ''}</button>`).join('') + `</div>`;
       h += `<div class="cap" id="cap-${key}" aria-live="polite" style="align-items:flex-start;margin-top:10px"><span class="muted">Trykk på en dag for detaljer.</span></div></section>`;
     };
-    group('Vaner', habits(), false);
-    group('Uvaner', bads(), true);
+    group('Vaner', orderedAll('habit'), false);
+    group('Uvaner', orderedAll('bad'), true);
     return h;
   }
   h += `<section class="card"><h2>Vaner <span class="badge">${havg==null?'–':'snitt '+havg+' %'}</span></h2>
     <div class="stat">Andel vaner der minstekravet ble nådd, per dag.</div>`;
-  if (!habits().length) h += `<p class="muted">Ingen vaner lagt til ennå.</p>`;
+  if (!state.activities.some(a => a.type === 'habit')) h += `<p class="muted">Ingen vaner lagt til ennå.</p>`;
   else h += chartSVG({k:'h', tips:hTips, aria:`Vaner, ${label}. ${havg==null?'Ingen data':'Snitt '+havg+' prosent nådd'}`}, hv, labels, kind, 'var(--hab)', {top:100, ticks:[0,50,100], pct:true}, month)
     + `<div class="cap" id="cap-h" aria-live="polite"><span class="muted">Trykk på en dag for detaljer.</span></div>`;
   h += `</section><section class="card"><h2>Uvaner <span class="badge bad">${btot} totalt</span></h2>
     <div class="stat">Antall ganger registrert per dag.</div>`;
-  if (!bads().length) h += `<p class="muted">Ingen uvaner lagt til ennå.</p>`;
+  if (!state.activities.some(a => a.type === 'bad')) h += `<p class="muted">Ingen uvaner lagt til ennå.</p>`;
   else h += chartSVG({k:'b', tips:bTips, aria:`Uvaner, ${label}. ${btot} registrert totalt`}, bv, labels, kind, 'var(--bad)', Object.assign(niceAxis(bmax), {pct:false}), month)
     + `<div class="cap" id="cap-b" aria-live="polite"><span class="muted">Trykk på en dag for detaljer.</span></div>`;
   return h + `</section>`;
 }
 
 /* --- Aktiviteter --- */
+function schedText(a) {
+  const s = sched(a);
+  if (s.mode === 'days') return ' · ' + [1,2,3,4,5,6,0].filter(d => (s.days || []).includes(d)).map(d => DAYS3[d]).join(', ');
+  if (s.mode === 'week') return ' · ' + s.n + ' dager/uke';
+  return '';
+}
 function renderActs() {
   const arrow = d => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="${d<0?'M6 15l6-6 6 6':'M6 9l6 6 6-6'}"/></svg>`;
   const item = (a, i, list) => `<div class="item"><button class="main" data-act="edit" data-id="${a.id}" aria-label="Rediger ${esc(a.name)}"><span class="dot ${a.type==='bad'?'bad':''}"></span>
-    <span style="flex:1;overflow-wrap:anywhere"><b>${esc(a.name)}</b>${a.type==='habit' ? `<span class="muted"> · minst ${a.target}×/dag</span>` : ''}</span></button>
+    <span style="flex:1;overflow-wrap:anywhere"><b>${esc(a.name)}</b> ${a.type==='habit' ? `<span class="muted"> · minst ${a.target}×/dag${schedText(a)}</span>` : ''}</span></button>
     <button class="mv" data-act="move" data-id="${a.id}" data-d="-1" aria-label="Flytt opp: ${esc(a.name)}" ${i===0?'disabled':''}>${arrow(-1)}</button>
     <button class="mv" data-act="move" data-id="${a.id}" data-d="1" aria-label="Flytt ned: ${esc(a.name)}" ${i===list.length-1?'disabled':''}>${arrow(1)}</button></div>`;
-  const hs = habits(), bs = bads();
+  const gHead = g => state.groups.length ? `<div class="ghead">${g ? gicon(g.icon) : ''}<span>${g ? esc(g.name) : 'Andre'}</span></div>` : '';
+  const sect = (type, none) => {
+    const list = live(type);
+    if (!list.length) return `<p class="muted">${none}</p>`;
+    return grouped(list).map(({ g, items }) => gHead(g) + items.map((a, i) => item(a, i, items)).join('')).join('');
+  };
   let h = `<div class="top"><h1>Aktiviteter</h1><button class="btn primary" data-act="newact">+ Ny</button></div>`;
   if (!storageOK) h += `<div class="warn" role="alert">Nettleseren tillater ikke lagring. Data blir borte når du lukker appen.</div>`;
-  h += `<section class="card"><h2>Vaner</h2><div class="alist">${hs.length ? hs.map((a,i)=>item(a,i,hs)).join('') : '<p class="muted">Ingen vaner.</p>'}</div></section>`;
-  h += `<section class="card"><h2>Uvaner</h2><div class="alist">${bs.length ? bs.map((a,i)=>item(a,i,bs)).join('') : '<p class="muted">Ingen uvaner.</p>'}</div></section>`;
+  h += `<section class="card"><h2>Vaner</h2><div class="alist">${sect('habit', 'Ingen vaner.')}</div></section>`;
+  h += `<section class="card"><h2>Uvaner</h2><div class="alist">${sect('bad', 'Ingen uvaner.')}</div></section>`;
+  h += `<section class="card"><div class="ghd"><h2 style="margin:0">Grupper</h2><button class="btn sm" data-act="gnew">+ Ny gruppe</button></div>`;
+  if (!state.groups.length) h += `<p class="note">Samle aktiviteter i grupper, for eksempel «Mosjon» eller «Hjemme», og velg et ikon til hver gruppe.</p>`;
+  else h += `<div class="alist" style="margin-top:6px">` + state.groups.map((g, i) => {
+    const n = state.activities.filter(a => a.group === g.id && !a.archived).length;
+    return `<div class="item"><button class="main" data-act="gedit" data-id="${g.id}" aria-label="Rediger gruppen ${esc(g.name)}"><span style="color:var(--hab);display:grid">${gicon(g.icon, 24)}</span>
+      <span style="flex:1;overflow-wrap:anywhere"><b>${esc(g.name)}</b><span class="muted"> · ${n} aktivitet${n===1?'':'er'}</span></span></button>
+      <button class="mv" data-act="gmove" data-id="${g.id}" data-d="-1" aria-label="Flytt gruppen opp: ${esc(g.name)}" ${i===0?'disabled':''}>${arrow(-1)}</button>
+      <button class="mv" data-act="gmove" data-id="${g.id}" data-d="1" aria-label="Flytt gruppen ned: ${esc(g.name)}" ${i===state.groups.length-1?'disabled':''}>${arrow(1)}</button></div>`;
+  }).join('') + `</div>`;
+  h += `</section>`;
+  const arch = state.activities.filter(a => a.archived);
+  if (arch.length) h += `<section class="card"><h2>Arkiverte</h2><p class="note" style="margin:0 0 4px">Skjult fra I dag, men historikken beholdes i trendene.</p><div class="alist">` + arch.map(a =>
+    `<div class="item"><button class="main" data-act="edit" data-id="${a.id}" aria-label="Åpne ${esc(a.name)}"><span class="dot ${a.type==='bad'?'bad':''}"></span>
+      <span style="flex:1;overflow-wrap:anywhere"><b>${esc(a.name)}</b><span class="muted"> · ${a.type==='bad'?'uvane':'vane'}</span></span></button>
+      <button class="btn sm" data-act="restore" data-id="${a.id}">Gjenopprett</button></div>`).join('') + `</div></section>`;
+  h += `<section class="card"><h2>Daglig påminnelse</h2>
+    <p class="note" style="margin-top:0">En nettapp kan ikke sende varsler pålitelig. Legg i stedet en gjentakende hendelse med alarm i kalenderen på telefonen.</p>
+    <label class="f" for="rtime">Klokkeslett</label><input id="rtime" class="txt" type="time" value="${esc(state.meta.remindTime || '20:00')}">
+    <button class="btn block" style="margin-top:10px" data-act="ics">Legg til i kalender</button></section>`;
   h += `<section class="card"><h2>Sikkerhetskopi</h2>
-    <p class="note" style="margin-top:0">Appversjon 7. Alt lagres kun i denne nettleseren på denne enheten. Tømmer du nettleserdata, forsvinner loggen. Last ned en kopi jevnlig.</p>
-    <div style="margin-top:12px"><button class="btn block" data-act="export">Last ned sikkerhetskopi</button>
+    <p class="note" style="margin-top:0">Appversjon 9. Alt lagres kun i denne nettleseren på denne enheten. Tømmer du nettleserdata, forsvinner loggen. ${state.meta.lastBackup ? 'Sist sikkerhetskopi: ' + esc(shortDate(state.meta.lastBackup)) + '.' : 'Du har ikke tatt sikkerhetskopi ennå.'}</p>
+    <div style="margin-top:12px"><button class="btn block" data-act="export">Lagre sikkerhetskopi</button>
     <button class="btn block" data-act="import">Gjenopprett fra fil</button></div></section>`;
   return h;
 }
@@ -469,20 +704,69 @@ function renderSheet() {
       <div class="minrow" role="group" aria-labelledby="lm"><button data-act="emin" data-d="-1" aria-label="Færre" ${e.target<=1?'disabled':''}>−</button>
       <output>${e.target}</output><button data-act="emin" data-d="1" aria-label="Flere">+</button></div>
       <p class="note">Du kan fortsatt logge flere ganger enn minstekravet.</p>` : ''}
+    ${e.type === 'habit' ? (() => { const sc = e.sched; return `<label class="f" id="lp">Planlegging</label>
+      <div class="seg" role="group" aria-labelledby="lp">
+        <button data-act="smode" data-m="daily" aria-pressed="${sc.mode==='daily'}">Hver dag</button>
+        <button data-act="smode" data-m="days" aria-pressed="${sc.mode==='days'}">Faste dager</button>
+        <button data-act="smode" data-m="week" aria-pressed="${sc.mode==='week'}">Per uke</button></div>
+      ${sc.mode === 'days' ? `<div class="chips" style="margin-top:8px" role="group" aria-label="Ukedager">${[1,2,3,4,5,6,0].map(d => `<button data-act="sday" data-d="${d}" aria-pressed="${sc.days.includes(d)}">${DAYS3[d]}</button>`).join('')}</div>
+        <p class="note">Andre dager regnes som hviledager og teller ikke som «ikke gjort».</p>` : ''}
+      ${sc.mode === 'week' ? `<div class="minrow" style="margin-top:8px" role="group" aria-label="Dager per uke"><button data-act="sweek" data-d="-1" aria-label="Færre" ${sc.n<=1?'disabled':''}>−</button><output>${sc.n}</output><button data-act="sweek" data-d="1" aria-label="Flere" ${sc.n>=7?'disabled':''}>+</button><span class="muted">dager i uken</span></div>
+        <p class="note">Ukemål-vaner teller ikke i dagsprosenten. Du får en rekke i antall uker der målet er nådd.</p>` : ''}`; })() : ''}
+    ${state.groups.length ? `<label class="f" id="lg">Gruppe</label><div class="chips" role="group" aria-labelledby="lg">
+      <button data-act="egroup" data-g="" aria-pressed="${!e.group}">Ingen</button>
+      ${state.groups.map(g => `<button data-act="egroup" data-g="${g.id}" aria-pressed="${e.group === g.id}">${gicon(g.icon, 18)} ${esc(g.name)}</button>`).join('')}</div>` : ''}
     ${e.err ? `<p class="note" style="color:var(--danger)" role="alert">${esc(e.err)}</p>` : ''}
     <div style="margin-top:16px">
       <button class="btn primary block" data-act="esave">Lagre</button>
       <button class="btn block" data-act="closesheet">Avbryt</button>
+      ${isNew ? '' : (e.archived
+        ? `<button class="btn block" data-act="restore" data-id="${e.id}">Gjenopprett aktivitet</button>`
+        : `<button class="btn block" data-act="archive" data-id="${e.id}">Arkiver (behold historikk)</button>`)}
       ${isNew ? '' : (e.confirm
         ? `<button class="btn danger block" data-act="edelete">Trykk igjen for å slette aktiviteten og all logg for den</button>`
         : `<button class="btn danger block" data-act="edeleteask">Slett aktivitet</button>`)}
     </div></div></div>`;
 }
 
+function renderNoteSheet() {
+  const n = ui.note; if (!n) return '';
+  const a = state.activities.find(x => x.id === n.id); if (!a) return '';
+  return `<div class="overlay" data-act="closen"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="nh">
+    <h2 id="nh">Notat</h2><p class="muted" style="margin:-6px 0 10px">${esc(a.name)} · ${esc(shortDate(n.day))}</p>
+    <label class="f sr" for="n-text">Notat</label>
+    <textarea id="n-text" class="txt" maxlength="1000" placeholder="F.eks. hvordan det gikk, hva som utløste det, styrke 1–10 …">${esc(n.text)}</textarea>
+    <div style="margin-top:14px"><button class="btn primary block" data-act="nsave">Lagre</button>
+      <button class="btn block" data-act="closen">Avbryt</button>
+      ${noteOf(n.id, n.day) ? `<button class="btn danger block" data-act="ndelete">Slett notat</button>` : ''}</div></div></div>`;
+}
+function renderGroupSheet() {
+  const g = ui.gedit; if (!g) return '';
+  return `<div class="overlay" data-act="closeg"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="gh">
+    <h2 id="gh">${g.id ? 'Rediger gruppe' : 'Ny gruppe'}</h2>
+    <label class="f" for="g-name">Navn på gruppen</label>
+    <input id="g-name" class="txt" type="text" maxlength="40" value="${esc(g.name)}" placeholder="F.eks. Mosjon" autocomplete="off">
+    <label class="f" id="li">Ikon</label>
+    <div class="igrid" role="group" aria-labelledby="li">${Object.keys(GI).map(k =>
+      `<button data-act="gicon" data-i="${k}" aria-pressed="${g.icon === k}" aria-label="${GI[k][0]}">${gicon(k, 24)}<span>${GI[k][0]}</span></button>`).join('')}</div>
+    ${g.err ? `<p class="note" style="color:var(--danger)" role="alert">${esc(g.err)}</p>` : ''}
+    <div style="margin-top:16px">
+      <button class="btn primary block" data-act="gsave">Lagre</button>
+      <button class="btn block" data-act="closeg">Avbryt</button>
+      ${g.id ? (g.confirm
+        ? `<button class="btn danger block" data-act="gdelete">Trykk igjen for å slette gruppen (aktivitetene beholdes)</button>`
+        : `<button class="btn danger block" data-act="gdeleteask">Slett gruppe</button>`) : ''}
+    </div></div></div>`;
+}
+
 function render() {
   renderTabs();
   const app = document.getElementById('app');
-  app.innerHTML = (ui.tab === 'today' ? renderToday() : ui.tab === 'trends' ? renderTrends() : renderActs()) + renderSheet();
+  app.innerHTML = (ui.tab === 'today' ? renderToday() : ui.tab === 'trends' ? renderTrends() : renderActs()) + renderSheet() + renderGroupSheet() + renderNoteSheet();
+  document.querySelectorAll('.gwrap').forEach(w => {   // rull månedsruter slik at i dag er synlig
+    const t = w.querySelector('th.today');
+    if (t && w.scrollWidth > w.clientWidth) w.scrollLeft = Math.max(0, t.getBoundingClientRect().left - w.getBoundingClientRect().left + w.scrollLeft - w.clientWidth / 2);
+  });
   if (ui.edit && ui.edit.focus) { const f = document.getElementById('f-name'); if (f) f.focus(); ui.edit.focus = false; }
 }
 
@@ -497,12 +781,24 @@ function toast(msg, undo) {
 }
 
 /* ---------- Handlinger ---------- */
+function syncG() { const f = document.getElementById('g-name'); if (f && ui.gedit) ui.gedit.name = f.value; }
 function syncName() { const f = document.getElementById('f-name'); if (f && ui.edit) ui.edit.name = f.value; }
 function openEdit(id) {
   const a = id && state.activities.find(x => x.id === id);
-  ui.edit = a ? { id:a.id, name:a.name, type:a.type, target:a.target, focus:false }
-              : { id:null, name:'', type:'habit', target:1, focus:false };
+  ui.edit = a ? { id:a.id, name:a.name, type:a.type, target:a.target, group:a.group || null, archived:!!a.archived, sched:JSON.parse(JSON.stringify(Object.assign({ mode:'daily', days:[1,2,3,4,5], n:3 }, a.sched || {}))), focus:false }
+              : { id:null, name:'', type:'habit', target:1, group:null, archived:false, sched:{ mode:'daily', days:[1,2,3,4,5], n:3 }, focus:false };
   render();
+}
+async function doExport() {
+  const text = JSON.stringify(state, null, 1), name = `vanelogg-${todayStr()}.json`;
+  let done = false;
+  try {
+    const f = new File([text], name, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'Vanelogg sikkerhetskopi' }); done = true; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  if (!done) download(name, text);
+  state.meta.lastBackup = todayStr(); state.meta.snoozeUntil = null; save(); render();
+  toast('Sikkerhetskopi lagret');
 }
 function download(name, text) {
   const b = new Blob([text], { type:'application/json' }), u = URL.createObjectURL(b);
@@ -514,7 +810,7 @@ document.addEventListener('click', ev => {
   const el = ev.target.closest('[data-act]'); if (!el) return;
   const act = el.dataset.act, id = el.dataset.id;
   switch (act) {
-    case 'tab': ui.tab = el.dataset.tab; ui.edit = null; render(); window.scrollTo(0,0); break;
+    case 'tab': ui.tab = el.dataset.tab; ui.edit = null; ui.gedit = null; ui.note = null; render(); window.scrollTo(0,0); break;
     case 'day': { const nd = ymd(addDays(parse(ui.day), +el.dataset.d)); if (nd <= todayStr()) { ui.day = nd; render(); } break; }
     case 'gotoday': ui.day = todayStr(); render(); break;
     case 'pickdate': { const p = document.getElementById('datePick'); p.max = todayStr(); p.value = ui.day;
@@ -523,9 +819,9 @@ document.addEventListener('click', ev => {
     case 'inc': setCount(id, ui.day, getCount(id, ui.day) + 1); render(); break;
     case 'dec': setCount(id, ui.day, getCount(id, ui.day) - 1); render(); break;
     case 'clearday': {
-      const snap = JSON.parse(JSON.stringify(state.logs[ui.day] || {})), day = ui.day;
-      delete state.logs[day]; save(); render();
-      toast('Loggen for ' + shortDate(day) + ' er slettet', () => { state.logs[day] = snap; save(); render(); });
+      const snap = JSON.parse(JSON.stringify(state.logs[ui.day] || {})), nsnap = JSON.parse(JSON.stringify(state.notes[ui.day] || {})), day = ui.day;
+      delete state.logs[day]; delete state.notes[day]; save(); render();
+      toast('Loggen for ' + shortDate(day) + ' er slettet', () => { if (Object.keys(snap).length) state.logs[day] = snap; if (Object.keys(nsnap).length) state.notes[day] = nsnap; save(); render(); });
       break; }
     case 'undo': if (toast.undo) { toast.undo(); document.getElementById('toast-root').innerHTML = ''; toast.undo = null; } break;
     case 'range': state.prefs.range = el.dataset.r; ui.offset = 0; save(); render(); break;
@@ -539,10 +835,70 @@ document.addEventListener('click', ev => {
       break; }
     case 'move': {
       const d = +el.dataset.d, a = state.activities.find(x => x.id === id);
-      const list = state.activities.filter(x => x.type === a.type), i = list.indexOf(a), o = list[i + d];
+      const list = live(a.type).filter(x => (x.group || null) === (a.group || null)), i = list.indexOf(a), o = list[i + d];
       if (o) { const ia = state.activities.indexOf(a), io = state.activities.indexOf(o); state.activities[ia] = o; state.activities[io] = a; save(); }
       render();
       const btn = document.querySelector(`[data-act=move][data-id="${id}"][data-d="${d}"]:not(:disabled)`) || document.querySelector(`[data-act=move][data-id="${id}"]:not(:disabled)`);
+      if (btn) btn.focus();
+      break; }
+    case 'note': ui.note = { id, day: ui.day, text: noteOf(id, ui.day) }; render(); { const t = document.getElementById('n-text'); if (t) t.focus(); } break;
+    case 'closen': if (el.classList.contains('overlay') && ev.target !== el) break; ui.note = null; render(); break;
+    case 'nsave': { const t = document.getElementById('n-text'); setNote(ui.note.id, ui.note.day, t ? t.value : ''); ui.note = null; render(); break; }
+    case 'ndelete': setNote(ui.note.id, ui.note.day, ''); ui.note = null; render(); break;
+    case 'smode': syncName(); ui.edit.sched.mode = el.dataset.m; render(); break;
+    case 'sday': { syncName(); const d = +el.dataset.d, ds = ui.edit.sched.days, i = ds.indexOf(d); if (i >= 0) ds.splice(i, 1); else ds.push(d); render(); break; }
+    case 'sweek': syncName(); ui.edit.sched.n = Math.max(1, Math.min(7, ui.edit.sched.n + (+el.dataset.d))); render(); break;
+    case 'gcell': {
+      const a = state.activities.find(x => x.id === id), d = el.dataset.d;
+      document.querySelectorAll('.cell.sel').forEach(r => r.classList.remove('sel')); el.classList.add('sel');
+      const cap = document.getElementById('cap-g-' + a.type), n = noteOf(a.id, d);
+      cap.innerHTML = `<div><b>${esc(a.name)}</b> · ${esc(shortDate(d))}: ${esc(statusText(a, d))}${n ? `<br><em>«${esc(n)}»</em>` : ''}</div>` + (d <= todayStr() ? `<button class="linkbtn" data-act="editday" data-day="${d}">${I.edit} Rediger dag</button>` : '');
+      break; }
+    case 'snooze': state.meta.snoozeUntil = ymd(addDays(new Date(), 3)); save(); render(); break;
+    case 'ics': {
+      const tm = (document.getElementById('rtime') || {}).value || '20:00'; state.meta.remindTime = tm; save();
+      const [hh, mm] = tm.split(':'), pad2 = x => String(x).padStart(2, '0');
+      const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Vanelogg//NO','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:vanelogg-daglig@' + (location.hostname || 'lokal'),
+        'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z', 'DTSTART:' + todayStr().replace(/-/g, '') + 'T' + pad2(hh) + pad2(mm) + '00', 'DURATION:PT10M', 'RRULE:FREQ=DAILY',
+        'SUMMARY:Logg vanene dine', 'DESCRIPTION:Åpne Vanelogg og logg dagens vaner. ' + location.href.split('#')[0], 'BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:Logg vanene dine','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+      const b = new Blob([ics], { type: 'text/calendar' }), u = URL.createObjectURL(b), l = document.createElement('a');
+      l.href = u; l.download = 'vanelogg-paminnelse.ics'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 2000);
+      toast('Åpne filen for å legge påminnelsen i kalenderen');
+      break; }
+    case 'archive': {
+      const a = state.activities.find(x => x.id === id), t = todayStr();
+      a.archived = getCount(a.id, t) > 0 ? ymd(addDays(new Date(), 1)) : t;
+      save(); ui.edit = null; render();
+      toast('«' + a.name + '» er arkivert', () => { a.archived = null; save(); render(); });
+      break; }
+    case 'restore': {
+      const a = state.activities.find(x => x.id === id), t = todayStr();
+      if (a.archived && a.archived < t) (a.gaps = a.gaps || []).push({ from: a.archived, to: t });
+      a.archived = null; save(); ui.edit = null; render();
+      toast('«' + a.name + '» er gjenopprettet');
+      break; }
+    case 'egroup': syncName(); ui.edit.group = el.dataset.g || null; render(); break;
+    case 'gnew': ui.gedit = { id:null, name:'', icon:'star' }; render(); break;
+    case 'gedit': { const g = state.groups.find(x => x.id === id); ui.gedit = { id:g.id, name:g.name, icon:g.icon }; render(); break; }
+    case 'gicon': syncG(); ui.gedit.icon = el.dataset.i; render(); break;
+    case 'closeg': if (el.classList.contains('overlay') && ev.target !== el) break; ui.gedit = null; render(); break;
+    case 'gsave': {
+      syncG(); const g = ui.gedit, name = g.name.trim();
+      if (!name) { g.err = 'Skriv inn et navn.'; render(); break; }
+      if (g.id) { const x = state.groups.find(y => y.id === g.id); x.name = name; x.icon = g.icon; }
+      else state.groups.push({ id: uid(), name, icon: g.icon });
+      save(); ui.gedit = null; render(); break; }
+    case 'gdeleteask': syncG(); ui.gedit.confirm = true; render(); break;
+    case 'gdelete': {
+      const gid = ui.gedit.id;
+      state.activities.forEach(a => { if (a.group === gid) a.group = null; });
+      state.groups = state.groups.filter(x => x.id !== gid);
+      save(); ui.gedit = null; render(); break; }
+    case 'gmove': {
+      const d = +el.dataset.d, i = state.groups.findIndex(x => x.id === id), j = i + d;
+      if (state.groups[j]) { [state.groups[i], state.groups[j]] = [state.groups[j], state.groups[i]]; save(); }
+      render();
+      const btn = document.querySelector(`[data-act=gmove][data-id="${id}"][data-d="${d}"]:not(:disabled)`) || document.querySelector(`[data-act=gmove][data-id="${id}"]:not(:disabled)`);
       if (btn) btn.focus();
       break; }
     case 'legend': ui.hide[id] = !ui.hide[id]; render(); break;
@@ -560,23 +916,27 @@ document.addEventListener('click', ev => {
     case 'esave': {
       syncName(); const e = ui.edit, name = e.name.trim();
       if (!name) { e.err = 'Skriv inn et navn.'; render(); document.getElementById('f-name').focus(); break; }
-      if (e.id) { const a = state.activities.find(x => x.id === e.id); a.name = name; a.type = e.type; a.target = e.target; }
-      else state.activities.push({ id:uid(), name, type:e.type, target:e.target, created: todayStr() });
+      if (e.type === 'habit' && e.sched.mode === 'days' && !e.sched.days.length) { e.err = 'Velg minst én ukedag.'; render(); break; }
+      if (e.id) { const a = state.activities.find(x => x.id === e.id); a.name = name; a.type = e.type; a.target = e.target; a.group = e.group || null; a.sched = e.sched; }
+      else state.activities.push({ id:uid(), name, type:e.type, target:e.target, group:e.group || null, sched:e.sched, created: todayStr() });
       save(); ui.edit = null; render(); break; }
     case 'edeleteask': syncName(); ui.edit.confirm = true; render(); break;
     case 'edelete': {
       const a = state.activities.find(x => x.id === ui.edit.id);
       const snapAct = JSON.parse(JSON.stringify(a)), snapLogs = {};
+      const snapNotes = {};
       Object.keys(state.logs).forEach(d => { if (state.logs[d][a.id] != null) snapLogs[d] = state.logs[d][a.id]; });
+      Object.keys(state.notes).forEach(d => { if (state.notes[d][a.id] != null) { snapNotes[d] = state.notes[d][a.id]; delete state.notes[d][a.id]; if (!Object.keys(state.notes[d]).length) delete state.notes[d]; } });
       state.activities = state.activities.filter(x => x.id !== a.id);
       Object.keys(state.logs).forEach(d => { delete state.logs[d][a.id]; if (!Object.keys(state.logs[d]).length) delete state.logs[d]; });
       save(); ui.edit = null; render();
       toast('«' + snapAct.name + '» er slettet', () => {
         state.activities.push(snapAct);
         Object.keys(snapLogs).forEach(d => { (state.logs[d] = state.logs[d] || {})[snapAct.id] = snapLogs[d]; });
+        Object.keys(snapNotes).forEach(d => { (state.notes[d] = state.notes[d] || {})[snapAct.id] = snapNotes[d]; });
         save(); render(); });
       break; }
-    case 'export': download(`vanelogg-${todayStr()}.json`, JSON.stringify(state, null, 1)); break;
+    case 'export': doExport(); break;
     case 'import': document.getElementById('importFile').click(); break;
   }
 });
@@ -584,6 +944,7 @@ document.addEventListener('click', ev => {
 document.addEventListener('change', ev => {
   const el = ev.target;
   if (el.classList.contains('cnt')) { setCount(el.dataset.id, ui.day, el.value); render(); }
+  else if (el.id === 'rtime') { state.meta.remindTime = el.value || '20:00'; save(); }
   else if (el.id === 'datePick') { if (el.value && el.value <= todayStr()) { ui.day = el.value; render(); } el.classList.add('hidden'); }
   else if (el.id === 'importFile' && el.files[0]) {
     const f = el.files[0], r = new FileReader();
@@ -592,7 +953,7 @@ document.addEventListener('change', ev => {
         const p = JSON.parse(r.result);
         if (!p || !Array.isArray(p.activities) || typeof p.logs !== 'object') throw 0;
         if (!confirm('Dette erstatter all eksisterende data i appen. Fortsette?')) return;
-        state = { v:1, activities:p.activities, logs:p.logs, prefs:Object.assign({range:'week',kind:'bar'}, p.prefs||{}) };
+        state = { v:1, activities:p.activities, groups:Array.isArray(p.groups) ? p.groups : [], notes:(p.notes && typeof p.notes === 'object') ? p.notes : {}, meta:Object.assign({ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, p.meta || {}), logs:p.logs, prefs:Object.assign({range:'week',kind:'bar'}, p.prefs||{}) };
         save(); ui.offset = 0; render(); toast('Sikkerhetskopi gjenopprettet');
       } catch(e) { alert('Filen ser ikke ut som en gyldig sikkerhetskopi fra Vanelogg.'); }
     };
@@ -600,10 +961,36 @@ document.addEventListener('change', ev => {
   }
 });
 document.addEventListener('keydown', ev => {
-  if (ev.key === 'Escape' && ui.edit) { ui.edit = null; render(); }
+  if (ev.key === 'Escape' && (ui.edit || ui.gedit || ui.note)) { ui.edit = null; ui.gedit = null; ui.note = null; render(); }
   if (ev.key === 'Enter' && ev.target.classList.contains('cnt')) ev.target.blur();
   if (ev.key === 'Enter' && ev.target.id === 'f-name') { ev.preventDefault(); document.querySelector('[data-act="esave"]').click(); }
+  if (ev.key === 'Enter' && ev.target.id === 'g-name') { ev.preventDefault(); document.querySelector('[data-act="gsave"]').click(); }
 });
+/* Hurtiglogging: dobbelttrykk eller hold inne på et navn gir +1. Sveip bytter dag. */
+function quickInc(id) { setCount(id, ui.day, getCount(id, ui.day) + 1); render(); try { navigator.vibrate && navigator.vibrate(15); } catch(e) {} }
+let lastTap = { id:null, t:0 }, lpTimer = null;
+document.addEventListener('click', ev => {
+  const q = ev.target.closest('.qlog'); if (!q) return;
+  const now = Date.now();
+  if (lastTap.id === q.dataset.id && now - lastTap.t < 350) { lastTap = { id:null, t:0 }; quickInc(q.dataset.id); }
+  else lastTap = { id:q.dataset.id, t:now };
+});
+document.addEventListener('pointerdown', ev => {
+  const q = ev.target.closest('.qlog'); if (!q) return;
+  clearTimeout(lpTimer); lpTimer = setTimeout(() => { lpTimer = null; lastTap = { id:null, t:0 }; quickInc(q.dataset.id); }, 600);
+});
+['pointerup','pointercancel'].forEach(t => document.addEventListener(t, () => clearTimeout(lpTimer)));
+document.addEventListener('contextmenu', ev => { if (ev.target.closest('.qlog')) ev.preventDefault(); });
+let sx = 0, sy = 0;
+document.addEventListener('touchstart', ev => { const t = ev.changedTouches[0]; sx = t.clientX; sy = t.clientY; }, { passive:true });
+document.addEventListener('touchend', ev => {
+  if (ui.tab !== 'today' || ui.edit || ui.gedit || ui.note || (ev.target.closest && ev.target.closest('input,textarea'))) return;
+  const t = ev.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (sx < 24) return;   // unngå konflikt med tilbake-sveip i nettleseren
+  if (Math.abs(dx) > 80 && Math.abs(dy) < 50 && Math.abs(dx) > 2 * Math.abs(dy)) {
+    const nd = ymd(addDays(parse(ui.day), dx > 0 ? -1 : 1)); if (nd <= todayStr()) { ui.day = nd; render(); }
+  }
+}, { passive:true });
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden && todayStr() !== lastToday) { if (ui.day === lastToday) ui.day = todayStr(); lastToday = todayStr(); render(); }
 });
