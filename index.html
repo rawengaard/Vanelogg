@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vanelogg</title>
+<meta name="theme-color" content="#0f766e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Vanelogg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  --c1:#0f766e;--c2:#2563eb;--c3:#9333ea;--c4:#db2777;--c5:#b45309;--c6:#4d7c0f;
+  --bg:#f4f6f4;--card:#fff;--ink:#17201e;--muted:#5b6865;--line:#dde3e0;
+  --hab:#0f766e;--hab-soft:#d6efeb;--bad:#b45309;--bad-soft:#fbe9d0;--danger:#b42318;
+  --focus:#1d4ed8;
+}
+@media (prefers-color-scheme:dark){
+  :root{--c1:#2dd4bf;--c2:#60a5fa;--c3:#c084fc;--c4:#f472b6;--c5:#fbbf24;--c6:#a3e635;--bg:#0f1514;--card:#182120;--ink:#e8efed;--muted:#9bacA8;--line:#2b3836;
+    --hab:#2dd4bf;--hab-soft:#12403b;--bad:#fbbf24;--bad-soft:#473512;--danger:#f97066;--focus:#8ab4ff}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{min-height:100vh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+#app{max-width:560px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 16px}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+h1{font-size:1.35rem;margin:0}
+h2{font-size:1.05rem;margin:0}
+.muted{color:var(--muted)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.iconbtn{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+.iconbtn:disabled{opacity:.35;cursor:default}
+.datehead{flex:1;text-align:center}
+.datehead .d{font-weight:650;font-size:1.1rem}
+.datehead .s{font-size:.85rem;color:var(--muted)}
+.linkbtn{background:none;border:0;color:var(--hab);font-weight:600;padding:6px 4px;min-height:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+.card h2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.badge{font-size:.8rem;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--hab-soft);color:var(--hab)}
+.badge.bad{background:var(--bad-soft);color:var(--bad)}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row .info{flex:1;min-width:0}
+.row .name{font-weight:600;overflow-wrap:anywhere}
+.row .sub{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:4px}
+.row.done .sub{color:var(--hab);font-weight:600}
+.stepper{display:flex;align-items:center;gap:4px}
+.stepper button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.4rem;line-height:1}
+.stepper button.plus{background:var(--hab);border-color:var(--hab);color:#fff}
+.bad .stepper button.plus,.row.badrow .stepper button.plus{background:var(--bad);border-color:var(--bad)}
+@media (prefers-color-scheme:dark){.stepper button.plus{color:#062b27}.row.badrow .stepper button.plus{color:#2b1b00}}
+.stepper button:disabled{opacity:.35}
+.cnt{min-width:46px;height:44px;text-align:center;font-size:1.2rem;font-weight:700;border:1px solid transparent;border-radius:10px;background:transparent;-moz-appearance:textfield}
+.cnt::-webkit-outer-spin-button,.cnt::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.cnt:focus{border-color:var(--line);background:var(--bg)}
+.empty{text-align:center;padding:28px 12px}
+.empty p{margin:6px 0 16px}
+.btn{min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:600}
+.btn.primary{background:var(--hab);border-color:var(--hab);color:#fff}
+@media (prefers-color-scheme:dark){.btn.primary{color:#062b27}}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.block{display:block;width:100%}
+.btn+.btn{margin-top:8px}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;min-height:40px;border:0;border-radius:9px;background:transparent;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--hab);color:#fff}
+@media (prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#062b27}}
+.controls{display:grid;gap:10px;margin-bottom:12px}
+.nav{display:flex;align-items:center;gap:8px}
+.nav .lbl{flex:1;text-align:center;font-weight:650}
+.stat{font-size:.9rem;color:var(--muted);margin-bottom:6px}
+svg.chart{width:100%;height:auto;display:block;touch-action:manipulation}
+.chart text{fill:var(--muted);font-size:10px;font-family:inherit}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .hit{fill:transparent;cursor:pointer}
+.chart .hit:hover,.chart .hit.sel{fill:rgba(128,128,128,.14)}
+.cap{min-height:2.6em;font-size:.9rem;margin-top:4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:5}
+.tabs button{flex:1;border:0;background:none;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.78rem;font-weight:600;color:var(--muted)}
+.tabs button[aria-current=page]{color:var(--hab)}
+.tabs svg{width:24px;height:24px}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;height:100vh;height:100dvh;background:rgba(0,0,0,.45);z-index:10;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:88vh;max-height:88dvh;overflow:auto;-webkit-overflow-scrolling:touch}
+.sheet h2{margin-bottom:12px}
+label.f{display:block;font-weight:600;margin:12px 0 6px;font-size:.92rem}
+input.txt{width:100%;min-height:46px;border:1px solid var(--line);border-radius:12px;padding:0 12px;background:var(--bg)}
+.minrow{display:flex;align-items:center;gap:10px}
+.minrow output{font-size:1.2rem;font-weight:700;min-width:2ch;text-align:center}
+.minrow button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.4rem}
+.alist button.item{width:100%;text-align:left;display:flex;align-items:center;gap:10px;background:none;border:0;border-top:1px solid var(--line);padding:12px 0;min-height:52px}
+.alist button.item:first-child{border-top:0}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--hab);flex:none}
+.dot.bad{background:var(--bad)}
+.warn{background:var(--bad-soft);color:var(--bad);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:.9rem}
+.note{font-size:.88rem;color:var(--muted);margin:8px 0 0}
+.hidden{display:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.legend button{display:flex;align-items:center;gap:6px;min-height:40px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:.88rem;font-weight:600;max-width:100%}
+.legend button[aria-pressed=false]{opacity:.45;text-decoration:line-through}
+.legend svg{flex:none}
+.cap ul{margin:0;padding:0;list-style:none;font-size:.88rem}
+.cap li{display:flex;align-items:center;gap:6px;padding:1px 0}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom));background:#17201e;color:#fff;padding:10px 16px;border-radius:12px;z-index:20;font-size:.92rem;display:flex;gap:12px;align-items:center}
+.toast button{background:none;border:0;color:#7ee2d6;font-weight:700;min-height:32px}
+.daytools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:2px 0 14px}
+.daytools .linkbtn{display:flex;align-items:center;gap:4px}
+.daytools .linkbtn.danger{color:var(--danger)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav class="tabs" id="tabs" aria-label="Hovedmeny"></nav>
+<input type="file" id="importFile" accept="application/json,.json" class="hidden">
+<input type="date" id="datePick" class="hidden" aria-label="Velg dato">
+<div id="toast-root"></div>
+
+<script>
+(() => {
+'use strict';
+/* ---------- Hjelpere ---------- */
+const DAYN = ['søndag','mandag','tirsdag','onsdag','torsdag','fredag','lørdag'];
+const DAYS3 = ['søn','man','tir','ons','tor','fre','lør'];
+const MONTHN = ['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+const MON3 = ['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
+const pad = n => String(n).padStart(2,'0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y,m-1,d); };
+const addDays = (d,n) => { const x = new Date(d.getFullYear(),d.getMonth(),d.getDate()); x.setDate(x.getDate()+n); return x; };
+const todayStr = () => ymd(new Date());
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
+const longDate = s => { const d = parse(s); return `${DAYN[d.getDay()]} ${d.getDate()}. ${MONTHN[d.getMonth()]}`; };
+const shortDate = s => { const d = parse(s); return `${DAYS3[d.getDay()]} ${d.getDate()}. ${MON3[d.getMonth()]}`; };
+
+/* ---------- Lagring ---------- */
+const KEY = 'vanelogg.v1';
+let storageOK = true;
+let state = { v:1, activities:[], logs:{}, prefs:{ range:'week', kind:'bar' } };
+try {
+  const raw = localStorage.getItem(KEY);
+  if (raw) { const p = JSON.parse(raw); if (p && Array.isArray(p.activities) && p.logs) state = Object.assign(state, p, { prefs: Object.assign(state.prefs, p.prefs||{}) }); }
+} catch(e) { storageOK = false; }
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { storageOK = false; }
+}
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e) {}
+
+/* ---------- Dataregler ---------- */
+const habits = () => state.activities.filter(a => a.type === 'habit');
+const bads = () => state.activities.filter(a => a.type === 'bad');
+const getCount = (id, day) => (state.logs[day] && state.logs[day][id]) || 0;
+function setCount(id, day, n) {
+  n = Math.max(0, Math.min(999, Math.floor(Number(n) || 0)));
+  if (n === 0) { if (state.logs[day]) { delete state.logs[day][id]; if (!Object.keys(state.logs[day]).length) delete state.logs[day]; } }
+  else { (state.logs[day] = state.logs[day] || {})[id] = n; }
+  const a = state.activities.find(x => x.id === id);
+  if (a && n > 0 && day < a.created) a.created = day;   // logger bakover i tid -> aktiviteten fantes da
+  save();
+}
+function habitDay(day) {
+  const hs = habits().filter(a => a.created <= day);
+  if (!hs.length) return null;
+  const reached = hs.filter(a => getCount(a.id, day) >= a.target).length;
+  return { reached, total: hs.length, pct: Math.round(reached / hs.length * 100) };
+}
+function badDay(day) {
+  const bs = bads().filter(a => a.created <= day);
+  if (!bs.length) return null;
+  return { n: bs.reduce((s,a) => s + getCount(a.id, day), 0) };
+}
+const dayHasLog = day => !!(state.logs[day] && Object.keys(state.logs[day]).some(id => state.activities.some(a => a.id === id)));
+
+/* ---------- UI-tilstand ---------- */
+const ui = { tab:'today', day: todayStr(), offset:0, edit:null, hide:{} };
+let lastToday = todayStr();
+
+/* ---------- Ikoner ---------- */
+const I = {
+  today:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>',
+  trend:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15v-4M12 15V8M16 15v-6"/></svg>',
+  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>',
+  left:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  right:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>',
+  cal:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+  trash:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+  edit:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>'
+};
+
+/* ---------- Visninger ---------- */
+function renderTabs() {
+  const t = [['today','I dag',I.today],['trends','Trender',I.trend],['acts','Aktiviteter',I.list]];
+  document.getElementById('tabs').innerHTML = t.map(([k,l,ic]) =>
+    `<button data-act="tab" data-tab="${k}" ${ui.tab===k?'aria-current="page"':''}>${ic}<span>${l}</span></button>`).join('');
+}
+
+function renderToday() {
+  const day = ui.day, isToday = day === todayStr();
+  const hs = habits(), bs = bads();
+  const hd = habitDay(day);
+  const reachedN = hs.filter(a => getCount(a.id, day) >= a.target).length;
+  let h = `<div class="top">
+    <button class="iconbtn" data-act="day" data-d="-1" aria-label="Forrige dag">${I.left}</button>
+    <div class="datehead"><div class="d">${cap1(longDate(day))}</div>
+      <div class="s">${isToday ? 'I dag' : (day > todayStr() ? '' : 'Redigerer tidligere dag')}</div></div>
+    <button class="iconbtn" data-act="day" data-d="1" aria-label="Neste dag" ${isToday?'disabled':''}>${I.right}</button>
+  </div>
+  <div class="daytools">
+    <button class="linkbtn" data-act="pickdate">${I.cal} Velg dato</button>
+    ${isToday ? '' : '<button class="linkbtn" data-act="gotoday">Tilbake til i dag</button>'}
+    ${dayHasLog(day) ? `<button class="linkbtn danger" data-act="clearday">${I.trash} Slett dagens logg</button>` : ''}
+  </div>`;
+  if (!storageOK) h += `<div class="warn" role="alert">Nettleseren tillater ikke lagring. Data blir borte når du lukker appen.</div>`;
+  if (!state.activities.length) {
+    h += `<div class="card empty"><h2 style="justify-content:center">Ingen aktiviteter ennå</h2>
+      <p class="muted">Legg til vaner du vil bygge og uvaner du vil holde oversikt over.</p>
+      <button class="btn primary block" data-act="newact">Legg til aktivitet</button>
+      <button class="btn block" data-act="examples">Prøv med eksempler</button></div>`;
+    return h;
+  }
+  if (hs.length) {
+    h += `<section class="card" aria-labelledby="hh"><h2 id="hh">Vaner <span class="badge">${reachedN} av ${hs.length} nådd</span></h2>`;
+    h += hs.map(a => {
+      const c = getCount(a.id, day), done = c >= a.target;
+      return `<div class="row ${done?'done':''}">
+        <div class="info"><div class="name">${esc(a.name)}</div>
+        <div class="sub">${done ? I.check + ' Nådd' : 'Minst ' + a.target + (a.target>1?' ganger':' gang')}${c>a.target?' · ' + c + ' totalt':''}</div></div>
+        ${stepper(a, c)}</div>`;
+    }).join('') + `</section>`;
+  }
+  if (bs.length) {
+    const tot = bs.reduce((s,a) => s + getCount(a.id, day), 0);
+    h += `<section class="card" aria-labelledby="bh"><h2 id="bh">Uvaner <span class="badge bad">${tot} registrert</span></h2>`;
+    h += bs.map(a => {
+      const c = getCount(a.id, day);
+      return `<div class="row badrow"><div class="info"><div class="name">${esc(a.name)}</div>
+        <div class="sub">${c ? c + (c>1?' ganger':' gang') : 'Ingen'}</div></div>${stepper(a, c)}</div>`;
+    }).join('') + `</section>`;
+  }
+  return h;
+}
+function stepper(a, c) {
+  const n = esc(a.name);
+  return `<div class="stepper">
+    <button data-act="dec" data-id="${a.id}" aria-label="Ett mindre: ${n}" ${c?'':'disabled'}>−</button>
+    <input class="cnt" type="number" inputmode="numeric" min="0" max="999" value="${c}" data-id="${a.id}" aria-label="Antall for ${n}">
+    <button class="plus" data-act="inc" data-id="${a.id}" aria-label="Ett til: ${n}">+</button></div>`;
+}
+
+/* --- Trender --- */
+function periodDays() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  if (state.prefs.range === 'week') {
+    const end = addDays(today, ui.offset * 7);
+    const start = addDays(end, -6);
+    const days = Array.from({length:7}, (_,i) => ymd(addDays(start, i)));
+    const lbl = (ui.offset === 0 ? 'Siste 7 dager' : `${start.getDate()}. ${MON3[start.getMonth()]} – ${end.getDate()}. ${MON3[end.getMonth()]}`);
+    return { days, label: lbl, sub: `${start.getDate()}. ${MON3[start.getMonth()]} – ${end.getDate()}. ${MON3[end.getMonth()]} ${end.getFullYear()}` };
+  }
+  const base = new Date(today.getFullYear(), today.getMonth() + ui.offset, 1);
+  const n = new Date(base.getFullYear(), base.getMonth()+1, 0).getDate();
+  const days = Array.from({length:n}, (_,i) => ymd(new Date(base.getFullYear(), base.getMonth(), i+1)));
+  return { days, label: `${cap1(MONTHN[base.getMonth()])} ${base.getFullYear()}` };
+}
+function niceAxis(max) {
+  const step = max <= 4 ? 1 : Math.ceil(max / 4);
+  const top = step * Math.ceil(max / step);
+  const ticks = []; for (let v = 0; v <= top; v += step) ticks.push(v);
+  return { top, ticks };
+}
+function chartSVG(id, vals, labels, kind, color, axis, month) {
+  const W = 340, H = id.h || 196, L = axis.L || 38, R = 8, T = 10, B = 34;
+  const pw = W - L - R, ph = H - T - B, n = vals.length, st = pw / n;
+  const y = v => T + ph - (v / axis.top) * ph;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(id.aria)}">`;
+  axis.ticks.forEach(t => { s += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L-5}" y="${y(t)+3}" text-anchor="end">${axis.fmt ? axis.fmt(t) : t + (axis.pct?' %':'')}</text>`; });
+  if (kind === 'bar') {
+    vals.forEach((v,i) => {
+      if (v == null) return;
+      const bw = Math.max(2, st * (month ? .72 : .6)), x = L + i*st + (st-bw)/2;
+      const hgt = Math.max(v > 0 ? 2 : 0, ph * v / axis.top);
+      if (hgt) s += `<rect x="${x.toFixed(1)}" y="${(T+ph-hgt).toFixed(1)}" width="${bw.toFixed(1)}" height="${hgt.toFixed(1)}" rx="${month?1:3}" fill="${color}"/>`;
+    });
+  } else {
+    let seg = [], paths = [];
+    vals.forEach((v,i) => { if (v == null) { if (seg.length) paths.push(seg); seg = []; } else seg.push([L+(i+.5)*st, y(v)]); });
+    if (seg.length) paths.push(seg);
+    paths.forEach(p => {
+      if (p.length > 1) s += `<path d="M${p.map(q => q[0].toFixed(1)+','+q[1].toFixed(1)).join('L')}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+    });
+    vals.forEach((v,i) => { if (v != null) s += `<circle cx="${(L+(i+.5)*st).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${month?2.4:4}" fill="${color}"/>`; });
+  }
+  labels.forEach((lb,i) => {
+    const cx = L + (i+.5)*st;
+    if (lb[0]) s += `<text x="${cx.toFixed(1)}" y="${H-18}" text-anchor="middle">${lb[0]}</text>`;
+    if (lb[1]) s += `<text x="${cx.toFixed(1)}" y="${H-6}" text-anchor="middle">${lb[1]}</text>`;
+  });
+  vals.forEach((v,i) => { s += `<rect class="hit" data-act="sel" data-chart="${id.k}" data-i="${i}" x="${(L+i*st).toFixed(1)}" y="${T}" width="${st.toFixed(1)}" height="${ph}"><title>${esc(id.tips[i])}</title></rect>`; });
+  return s + '</svg>';
+}
+
+const SHAPES = [
+  (x,y,c) => `<circle cx="${x}" cy="${y}" r="4" fill="${c}"/>`,
+  (x,y,c) => `<rect x="${x-3.6}" y="${y-3.6}" width="7.2" height="7.2" fill="${c}"/>`,
+  (x,y,c) => `<path d="M${x} ${y-5}L${x+4.6} ${y+3.6}L${x-4.6} ${y+3.6}Z" fill="${c}"/>`,
+  (x,y,c) => `<path d="M${x} ${y-5}L${x+5} ${y}L${x} ${y+5}L${x-5} ${y}Z" fill="${c}"/>`
+];
+const serColor = i => `var(--c${i % 6 + 1})`;
+function legendMark(i) { return `<svg width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true">${SHAPES[i % 4](0,0,serColor(i))}</svg>`; }
+function multiLineSVG(key, series, labels, axis, month, ariaLabel, tips) {
+  const W = 340, H = 200, L = 64, R = 10, T = 16, B = 34;
+  const pw = W - L - R, ph = H - T - B, n = labels.length, st = pw / n, k = series.length;
+  const y = v => T + ph - (v / axis.top) * ph;
+  let o = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ariaLabel)}">`;
+  axis.ticks.forEach(t => { o += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L-5}" y="${y(t)+3}" text-anchor="end">${axis.fmt(t)}</text>`; });
+  series.forEach(se => {
+    const off = (se.slot - (k - 1) / 2) * 3;   // liten forskyvning så overlappende linjer er synlige
+    let seg = [], paths = [];
+    se.vals.forEach((v,i) => { if (v == null) { if (seg.length) paths.push(seg); seg = []; } else seg.push([L+(i+.5)*st, y(v)+off]); });
+    if (seg.length) paths.push(seg);
+    const col = serColor(se.idx);
+    paths.forEach(pt => { if (pt.length > 1) o += `<path d="M${pt.map(q => q[0].toFixed(1)+','+q[1].toFixed(1)).join('L')}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/>`; });
+    se.vals.forEach((v,i) => { if (v != null) o += month ? `<circle cx="${(L+(i+.5)*st).toFixed(1)}" cy="${(y(v)+off).toFixed(1)}" r="2" fill="${col}"/>` : SHAPES[se.idx % 4](+(L+(i+.5)*st).toFixed(1), +(y(v)+off).toFixed(1), col); });
+  });
+  labels.forEach((lb,i) => {
+    const cx = L + (i+.5)*st;
+    if (lb[0]) o += `<text x="${cx.toFixed(1)}" y="${H-18}" text-anchor="middle">${lb[0]}</text>`;
+    if (lb[1]) o += `<text x="${cx.toFixed(1)}" y="${H-6}" text-anchor="middle">${lb[1]}</text>`;
+  });
+  for (let i = 0; i < n; i++) o += `<rect class="hit" data-act="sel" data-chart="${key}" data-i="${i}" x="${(L+i*st).toFixed(1)}" y="${T}" width="${st.toFixed(1)}" height="${ph}"><title>${esc(tips[i])}</title></rect>`;
+  return o + '</svg>';
+}
+let chartTips = {};
+function renderTrends() {
+  const { days, label, sub } = periodDays();
+  const month = state.prefs.range === 'month', kind = state.prefs.kind, today = todayStr();
+  const labels = days.map((d,i) => {
+    const dt = parse(d), dn = dt.getDate();
+    if (!month) return [DAYS3[dt.getDay()], String(dn)];
+    return [null, (dn === 1 || dn % 5 === 0) ? String(dn) : null];
+  });
+  const hv = [], hTips = [], bv = [], bTips = [];
+  days.forEach(d => {
+    const fut = d > today, hd = fut ? null : habitDay(d), bd = fut ? null : badDay(d);
+    hv.push(hd ? hd.pct : null);
+    hTips.push(`${cap1(shortDate(d))}: ` + (fut ? 'fremtiden' : hd ? `${hd.reached} av ${hd.total} vaner nådd (${hd.pct} %)` : 'ingen vaner å spore'));
+    bv.push(bd ? bd.n : null);
+    bTips.push(`${cap1(shortDate(d))}: ` + (fut ? 'fremtiden' : bd ? `${bd.n} uvane${bd.n===1?'':'r'} registrert` : 'ingen uvaner å spore'));
+  });
+  chartTips = { h: { days, tips: hTips }, b: { days, tips: bTips } };
+  const hnum = hv.filter(v => v != null), bnum = bv.filter(v => v != null);
+  const havg = hnum.length ? Math.round(hnum.reduce((a,b)=>a+b,0)/hnum.length) : null;
+  const btot = bnum.reduce((a,b)=>a+b,0);
+  const bmax = Math.max(1, ...bnum);
+  const canNext = ui.offset < 0;
+  let h = `<div class="top"><h1>Trender</h1></div><div class="controls">
+    <div class="seg" role="group" aria-label="Periode">
+      <button data-act="range" data-r="week" aria-pressed="${!month}">7 dager</button>
+      <button data-act="range" data-r="month" aria-pressed="${month}">Måned</button></div>
+    <div class="nav"><button class="iconbtn" data-act="off" data-d="-1" aria-label="${month?'Forrige måned':'Forrige uke'}">${I.left}</button>
+      <div class="lbl">${esc(label)}${sub && ui.offset===0 ? `<div class="muted" style="font-weight:400;font-size:.8rem">${esc(sub)}</div>` : ''}</div>
+      <button class="iconbtn" data-act="off" data-d="1" aria-label="${month?'Neste måned':'Neste uke'}" ${canNext?'':'disabled'}>${I.right}</button></div>
+    <div class="seg" role="group" aria-label="Diagramtype">
+      <button data-act="kind" data-k="bar" aria-pressed="${kind==='bar'}">Stolper</button>
+      <button data-act="kind" data-k="line" aria-pressed="${kind==='line'}">Linje</button></div></div>`;
+
+  if (kind === 'line') {
+    const lvl = (a, d) => {
+      if (d > today || (d < a.created && !getCount(a.id, d))) return null;
+      const c = getCount(a.id, d);
+      return a.type === 'habit' ? (c >= a.target ? Math.floor(c / a.target) : 0) : (c > 0 ? 1 : 0);
+    };
+    const group = (title, list, bad) => {
+      h += `<section class="card"><h2>${title} <span class="badge ${bad?'bad':''}">${list.length} aktivitet${list.length===1?'':'er'}</span></h2>`;
+      if (!list.length) { h += `<p class="muted" style="margin:0">Ingen lagt til ennå.</p></section>`; return; }
+      h += `<p class="stat">${bad ? 'Gjort eller ikke gjort, per dag.' : 'Ikke gjort, oppnådd eller mål ×2, ×3 …, per dag.'} Trykk på navnene for å skjule/vise linjer.</p>`;
+      const all = list.map((a, i) => ({ a, idx: i, vals: days.map(d => lvl(a, d)) }));
+      const vis = all.filter(x => !ui.hide[x.a.id]).map((x, slot) => Object.assign(x, { slot }));
+      const mx = Math.max(1, ...vis.flatMap(x => x.vals.filter(v => v != null)));
+      let axis;
+      if (bad) axis = { top:1, ticks:[0,1], fmt: t => t ? 'Gjort' : 'Ikke gjort' };
+      else {
+        let top = mx, stp = 1; if (mx > 5) { stp = Math.ceil(mx/5); top = stp*Math.ceil(mx/stp); }
+        const ticks = []; for (let t = 0; t <= top; t += stp) ticks.push(t);
+        axis = { top, ticks, fmt: t => t === 0 ? 'Ikke gjort' : t === 1 ? 'Oppnådd' : '×' + t };
+      }
+      const key = bad ? 'lb' : 'lh';
+      const tips = [], rows = [];
+      days.forEach((d, i) => {
+        const head = cap1(shortDate(d));
+        const items = all.filter(x => !ui.hide[x.a.id]).map(x => {
+          const c = getCount(x.a.id, d), v = x.vals[i];
+          let t;
+          if (v == null) t = d > today ? 'fremtiden' : 'ikke i bruk ennå';
+          else if (bad) t = c ? `gjort (${c} ${c===1?'gang':'ganger'})` : 'ikke gjort';
+          else if (!c) t = 'ikke gjort';
+          else if (c < x.a.target) t = `${c} av ${x.a.target}, ikke nådd`;
+          else t = (v === 1 ? 'oppnådd' : `mål ×${v}`) + ` (${c} ${c===1?'gang':'ganger'})`;
+          return [x, t];
+        });
+        tips.push(head + ': ' + items.map(([x,t]) => x.a.name + ' ' + t).join('; '));
+        rows.push(`<div><b>${esc(head)}</b><ul>` + items.map(([x,t]) => `<li>${legendMark(x.idx)}<span>${esc(x.a.name)}: ${esc(t)}</span></li>`).join('') + `</ul></div>` +
+          (d <= today ? `<button class="linkbtn" data-act="editday" data-day="${d}">${I.edit} Rediger dag</button>` : ''));
+      });
+      chartTips[key] = { days, tips, rows };
+      h += vis.length ? multiLineSVG(key, vis, labels, axis, month, `${title}, ${label}`, tips)
+                      : `<p class="muted">Alle linjer er skjult.</p>`;
+      h += `<div class="legend">` + all.map(x => `<button data-act="legend" data-id="${x.a.id}" aria-pressed="${!ui.hide[x.a.id]}">${legendMark(x.idx)}${esc(x.a.name)}</button>`).join('') + `</div>`;
+      h += `<div class="cap" id="cap-${key}" aria-live="polite" style="align-items:flex-start;margin-top:10px"><span class="muted">Trykk på en dag for detaljer.</span></div></section>`;
+    };
+    group('Vaner', habits(), false);
+    group('Uvaner', bads(), true);
+    return h;
+  }
+  h += `<section class="card"><h2>Vaner <span class="badge">${havg==null?'–':'snitt '+havg+' %'}</span></h2>
+    <div class="stat">Andel vaner der minstekravet ble nådd, per dag.</div>`;
+  if (!habits().length) h += `<p class="muted">Ingen vaner lagt til ennå.</p>`;
+  else h += chartSVG({k:'h', tips:hTips, aria:`Vaner, ${label}. ${havg==null?'Ingen data':'Snitt '+havg+' prosent nådd'}`}, hv, labels, kind, 'var(--hab)', {top:100, ticks:[0,50,100], pct:true}, month)
+    + `<div class="cap" id="cap-h" aria-live="polite"><span class="muted">Trykk på en dag for detaljer.</span></div>`;
+  h += `</section><section class="card"><h2>Uvaner <span class="badge bad">${btot} totalt</span></h2>
+    <div class="stat">Antall ganger registrert per dag.</div>`;
+  if (!bads().length) h += `<p class="muted">Ingen uvaner lagt til ennå.</p>`;
+  else h += chartSVG({k:'b', tips:bTips, aria:`Uvaner, ${label}. ${btot} registrert totalt`}, bv, labels, kind, 'var(--bad)', Object.assign(niceAxis(bmax), {pct:false}), month)
+    + `<div class="cap" id="cap-b" aria-live="polite"><span class="muted">Trykk på en dag for detaljer.</span></div>`;
+  return h + `</section>`;
+}
+
+/* --- Aktiviteter --- */
+function renderActs() {
+  const item = a => `<button class="item" data-act="edit" data-id="${a.id}"><span class="dot ${a.type==='bad'?'bad':''}"></span>
+    <span style="flex:1"><b>${esc(a.name)}</b>${a.type==='habit' ? `<span class="muted"> · minst ${a.target}×/dag</span>` : ''}</span><span class="muted">${I.edit}</span></button>`;
+  const hs = habits(), bs = bads();
+  let h = `<div class="top"><h1>Aktiviteter</h1><button class="btn primary" data-act="newact">+ Ny</button></div>`;
+  if (!storageOK) h += `<div class="warn" role="alert">Nettleseren tillater ikke lagring. Data blir borte når du lukker appen.</div>`;
+  h += `<section class="card"><h2>Vaner</h2><div class="alist">${hs.length ? hs.map(item).join('') : '<p class="muted">Ingen vaner.</p>'}</div></section>`;
+  h += `<section class="card"><h2>Uvaner</h2><div class="alist">${bs.length ? bs.map(item).join('') : '<p class="muted">Ingen uvaner.</p>'}</div></section>`;
+  h += `<section class="card"><h2>Sikkerhetskopi</h2>
+    <p class="note" style="margin-top:0">Appversjon 6. Alt lagres kun i denne nettleseren på denne enheten. Tømmer du nettleserdata, forsvinner loggen. Last ned en kopi jevnlig.</p>
+    <div style="margin-top:12px"><button class="btn block" data-act="export">Last ned sikkerhetskopi</button>
+    <button class="btn block" data-act="import">Gjenopprett fra fil</button></div></section>`;
+  return h;
+}
+
+/* --- Redigeringsark --- */
+function renderSheet() {
+  const e = ui.edit; if (!e) return '';
+  const isNew = !e.id;
+  return `<div class="overlay" data-act="closesheet"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh">
+    <h2 id="sh">${isNew ? 'Ny aktivitet' : 'Rediger aktivitet'}</h2>
+    <label class="f" for="f-name">Navn</label>
+    <input id="f-name" class="txt" type="text" maxlength="60" value="${esc(e.name)}" placeholder="F.eks. 10 knebøy" autocomplete="off">
+    <label class="f" id="lt">Type</label>
+    <div class="seg" role="group" aria-labelledby="lt">
+      <button data-act="etype" data-t="habit" aria-pressed="${e.type==='habit'}">Vane</button>
+      <button data-act="etype" data-t="bad" aria-pressed="${e.type==='bad'}">Uvane</button></div>
+    ${e.type === 'habit' ? `<label class="f" id="lm">Minstekrav per dag (antall ganger)</label>
+      <div class="minrow" role="group" aria-labelledby="lm"><button data-act="emin" data-d="-1" aria-label="Færre" ${e.target<=1?'disabled':''}>−</button>
+      <output>${e.target}</output><button data-act="emin" data-d="1" aria-label="Flere">+</button></div>
+      <p class="note">Du kan fortsatt logge flere ganger enn minstekravet.</p>` : ''}
+    ${e.err ? `<p class="note" style="color:var(--danger)" role="alert">${esc(e.err)}</p>` : ''}
+    <div style="margin-top:16px">
+      <button class="btn primary block" data-act="esave">Lagre</button>
+      <button class="btn block" data-act="closesheet">Avbryt</button>
+      ${isNew ? '' : (e.confirm
+        ? `<button class="btn danger block" data-act="edelete">Trykk igjen for å slette aktiviteten og all logg for den</button>`
+        : `<button class="btn danger block" data-act="edeleteask">Slett aktivitet</button>`)}
+    </div></div></div>`;
+}
+
+function render() {
+  renderTabs();
+  const app = document.getElementById('app');
+  app.innerHTML = (ui.tab === 'today' ? renderToday() : ui.tab === 'trends' ? renderTrends() : renderActs()) + renderSheet();
+  if (ui.edit && ui.edit.focus) { const f = document.getElementById('f-name'); if (f) f.focus(); ui.edit.focus = false; }
+}
+
+/* ---------- Toast (angre) ---------- */
+let toastTimer;
+function toast(msg, undo) {
+  const r = document.getElementById('toast-root');
+  r.innerHTML = `<div class="toast" role="status"><span>${esc(msg)}</span>${undo ? '<button data-act="undo">Angre</button>' : ''}</div>`;
+  toast.undo = undo;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { r.innerHTML = ''; toast.undo = null; }, 6000);
+}
+
+/* ---------- Handlinger ---------- */
+function syncName() { const f = document.getElementById('f-name'); if (f && ui.edit) ui.edit.name = f.value; }
+function openEdit(id) {
+  const a = id && state.activities.find(x => x.id === id);
+  ui.edit = a ? { id:a.id, name:a.name, type:a.type, target:a.target, focus:false }
+              : { id:null, name:'', type:'habit', target:1, focus:false };
+  render();
+}
+function download(name, text) {
+  const b = new Blob([text], { type:'application/json' }), u = URL.createObjectURL(b);
+  const a = document.createElement('a'); a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(u), 2000);
+}
+
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-act]'); if (!el) return;
+  const act = el.dataset.act, id = el.dataset.id;
+  switch (act) {
+    case 'tab': ui.tab = el.dataset.tab; ui.edit = null; render(); window.scrollTo(0,0); break;
+    case 'day': { const nd = ymd(addDays(parse(ui.day), +el.dataset.d)); if (nd <= todayStr()) { ui.day = nd; render(); } break; }
+    case 'gotoday': ui.day = todayStr(); render(); break;
+    case 'pickdate': { const p = document.getElementById('datePick'); p.max = todayStr(); p.value = ui.day;
+      p.classList.remove('hidden'); p.style.cssText = 'position:fixed;opacity:0;pointer-events:none;top:0;left:0';
+      if (p.showPicker) { try { p.showPicker(); } catch(e) { p.focus(); p.click(); } } else { p.focus(); p.click(); } break; }
+    case 'inc': setCount(id, ui.day, getCount(id, ui.day) + 1); render(); break;
+    case 'dec': setCount(id, ui.day, getCount(id, ui.day) - 1); render(); break;
+    case 'clearday': {
+      const snap = JSON.parse(JSON.stringify(state.logs[ui.day] || {})), day = ui.day;
+      delete state.logs[day]; save(); render();
+      toast('Loggen for ' + shortDate(day) + ' er slettet', () => { state.logs[day] = snap; save(); render(); });
+      break; }
+    case 'undo': if (toast.undo) { toast.undo(); document.getElementById('toast-root').innerHTML = ''; toast.undo = null; } break;
+    case 'range': state.prefs.range = el.dataset.r; ui.offset = 0; save(); render(); break;
+    case 'kind': state.prefs.kind = el.dataset.k; save(); render(); break;
+    case 'off': { const n = ui.offset + (+el.dataset.d); if (n <= 0) { ui.offset = n; render(); } break; }
+    case 'sel': {
+      const k = el.dataset.chart, i = +el.dataset.i, c = chartTips[k], day = c.days[i];
+      document.querySelectorAll(`[data-chart="${k}"]`).forEach(r => r.classList.toggle('sel', r === el));
+      const cap = document.getElementById('cap-' + k);
+      cap.innerHTML = c.rows ? c.rows[i] : `<span>${esc(c.tips[i])}</span>` + (day <= todayStr() ? `<button class="linkbtn" data-act="editday" data-day="${day}">${I.edit} Rediger dag</button>` : '');
+      break; }
+    case 'legend': ui.hide[id] = !ui.hide[id]; render(); break;
+    case 'editday': ui.day = el.dataset.day; ui.tab = 'today'; render(); window.scrollTo(0,0); break;
+    case 'newact': openEdit(null); break;
+    case 'examples': {
+      const t = todayStr();
+      [['10 knebøy','habit',1],['Lese 2 sider i en bok','habit',1],['Gå mer enn 10 000 skritt','habit',1],['Spise sjokolade','bad',1],['Migrene','bad',1]]
+        .forEach(([name,type,target]) => state.activities.push({ id:uid(), name, type, target, created:t }));
+      save(); render(); break; }
+    case 'edit': openEdit(id); break;
+    case 'closesheet': if (el.classList.contains('overlay') && ev.target !== el) break; ui.edit = null; render(); break;
+    case 'etype': syncName(); ui.edit.type = el.dataset.t; render(); break;
+    case 'emin': syncName(); ui.edit.target = Math.max(1, Math.min(99, ui.edit.target + (+el.dataset.d))); render(); break;
+    case 'esave': {
+      syncName(); const e = ui.edit, name = e.name.trim();
+      if (!name) { e.err = 'Skriv inn et navn.'; render(); document.getElementById('f-name').focus(); break; }
+      if (e.id) { const a = state.activities.find(x => x.id === e.id); a.name = name; a.type = e.type; a.target = e.target; }
+      else state.activities.push({ id:uid(), name, type:e.type, target:e.target, created: todayStr() });
+      save(); ui.edit = null; render(); break; }
+    case 'edeleteask': syncName(); ui.edit.confirm = true; render(); break;
+    case 'edelete': {
+      const a = state.activities.find(x => x.id === ui.edit.id);
+      const snapAct = JSON.parse(JSON.stringify(a)), snapLogs = {};
+      Object.keys(state.logs).forEach(d => { if (state.logs[d][a.id] != null) snapLogs[d] = state.logs[d][a.id]; });
+      state.activities = state.activities.filter(x => x.id !== a.id);
+      Object.keys(state.logs).forEach(d => { delete state.logs[d][a.id]; if (!Object.keys(state.logs[d]).length) delete state.logs[d]; });
+      save(); ui.edit = null; render();
+      toast('«' + snapAct.name + '» er slettet', () => {
+        state.activities.push(snapAct);
+        Object.keys(snapLogs).forEach(d => { (state.logs[d] = state.logs[d] || {})[snapAct.id] = snapLogs[d]; });
+        save(); render(); });
+      break; }
+    case 'export': download(`vanelogg-${todayStr()}.json`, JSON.stringify(state, null, 1)); break;
+    case 'import': document.getElementById('importFile').click(); break;
+  }
+});
+/* Skriv tall direkte */
+document.addEventListener('change', ev => {
+  const el = ev.target;
+  if (el.classList.contains('cnt')) { setCount(el.dataset.id, ui.day, el.value); render(); }
+  else if (el.id === 'datePick') { if (el.value && el.value <= todayStr()) { ui.day = el.value; render(); } el.classList.add('hidden'); }
+  else if (el.id === 'importFile' && el.files[0]) {
+    const f = el.files[0], r = new FileReader();
+    r.onload = () => {
+      try {
+        const p = JSON.parse(r.result);
+        if (!p || !Array.isArray(p.activities) || typeof p.logs !== 'object') throw 0;
+        if (!confirm('Dette erstatter all eksisterende data i appen. Fortsette?')) return;
+        state = { v:1, activities:p.activities, logs:p.logs, prefs:Object.assign({range:'week',kind:'bar'}, p.prefs||{}) };
+        save(); ui.offset = 0; render(); toast('Sikkerhetskopi gjenopprettet');
+      } catch(e) { alert('Filen ser ikke ut som en gyldig sikkerhetskopi fra Vanelogg.'); }
+    };
+    r.readAsText(f); el.value = '';
+  }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape' && ui.edit) { ui.edit = null; render(); }
+  if (ev.key === 'Enter' && ev.target.classList.contains('cnt')) ev.target.blur();
+  if (ev.key === 'Enter' && ev.target.id === 'f-name') { ev.preventDefault(); document.querySelector('[data-act="esave"]').click(); }
+});
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && todayStr() !== lastToday) { if (ui.day === lastToday) ui.day = todayStr(); lastToday = todayStr(); render(); }
+});
+
+render();
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  const had = !!navigator.serviceWorker.controller; let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (had && !reloaded) { reloaded = true; location.reload(); } });
+  navigator.serviceWorker.register('sw.js').then(r => r.update()).catch(() => {});
+}
+})();
+</script>
+</body>
+</html>
