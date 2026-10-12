@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="Vanelogg">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root{
   --c1:#0f766e;--c2:#2563eb;--c3:#9333ea;--c4:#db2777;--c5:#b45309;--c6:#4d7c0f;
@@ -39,25 +39,54 @@ h2{font-size:1.05rem;margin:0}
 .datehead .d{font-weight:650;font-size:1.1rem}
 .datehead .s{font-size:.85rem;color:var(--muted)}
 .linkbtn{background:none;border:0;color:var(--hab);font-weight:600;padding:6px 4px;min-height:36px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-bottom:12px}
 .card h2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
 .badge{font-size:.8rem;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--hab-soft);color:var(--hab)}
 .badge.bad{background:var(--bad-soft);color:var(--bad)}
-.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
 h2+.row,.ghead+.row{border-top:0}
 .row .info{flex:1;min-width:0}
-.row .name{font-weight:600;overflow-wrap:anywhere}
-.row .sub{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.row.done .sub{color:var(--hab);font-weight:600}
-.stepper{display:flex;align-items:center;gap:4px}
+.row .name{font-weight:600;overflow-wrap:anywhere;line-height:1.25}
+.row .sub{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:2px 8px;flex-wrap:wrap;line-height:1.3}
+.row.done .sub{color:var(--g,var(--hab));font-weight:600}
+.stepper{display:flex;align-items:center;gap:2px}
 .stepper button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.4rem;line-height:1}
-.stepper button.plus{background:var(--hab);border-color:var(--hab);color:#fff}
-.bad .stepper button.plus,.row.badrow .stepper button.plus{background:var(--bad);border-color:var(--bad)}
-@media (prefers-color-scheme:dark){.stepper button.plus{color:#062b27}.row.badrow .stepper button.plus{color:#2b1b00}}
+.gc-teal{--g:#0f766e;--gs:#d6efeb;--gt:#fff}
+.gc-blue{--g:#1d4ed8;--gs:#dbe7fd;--gt:#fff}
+.gc-purple{--g:#6d28d9;--gs:#e9defc;--gt:#fff}
+.gc-pink{--g:#be185d;--gs:#fbdcea;--gt:#fff}
+.gc-orange{--g:#b43c0a;--gs:#fde3d3;--gt:#fff}
+.gc-green{--g:#166534;--gs:#d8f1de;--gt:#fff}
+.gc-red{--g:#b91c1c;--gs:#fbdada;--gt:#fff}
+.gc-slate{--g:#475569;--gs:#e2e8f0;--gt:#fff}
+@media (prefers-color-scheme:dark){
+.gc-teal{--g:#2dd4bf;--gs:#12403b;--gt:#062b27}
+.gc-blue{--g:#8ab4ff;--gs:#1b2a4d;--gt:#0b1530}
+.gc-purple{--g:#b79cff;--gs:#2c2150;--gt:#150b33}
+.gc-pink{--g:#f472b6;--gs:#4a1c37;--gt:#2e0a1c}
+.gc-orange{--g:#fb923c;--gs:#4a2a12;--gt:#2b1200}
+.gc-green{--g:#4ade80;--gs:#143a21;--gt:#04210f}
+.gc-red{--g:#f87171;--gs:#4a1c1c;--gt:#2e0808}
+.gc-slate{--g:#a8b5c6;--gs:#2a3340;--gt:#10161d}}
+.stepper button.plus{background:var(--g,var(--hab));border-color:var(--g,var(--hab));color:var(--gt,#fff)}
+.row.badrow .stepper button.plus{background:var(--g,var(--bad));border-color:var(--g,var(--bad));color:var(--gt,#fff)}
+@media (prefers-color-scheme:dark){.stepper button.plus{color:var(--gt,#062b27)}.row.badrow .stepper button.plus{color:var(--gt,#2b1b00)}}
+.card.gcard{border-left:6px solid var(--g)}
+.gh{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.gh .nm{font-weight:700;flex:1;overflow-wrap:anywhere}
+.ic{width:30px;height:30px;border-radius:10px;background:var(--gs);color:var(--g);display:grid;place-items:center;flex:none}
+.gcnt{font-size:.8rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--gs,var(--hab-soft));color:var(--g,var(--hab))}
+.sect{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 8px}
+.sect:first-of-type{margin-top:8px}
+.sect h2{font-size:1.1rem}
+.card>.row:first-child,.gh+.row{border-top:0}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.sw{width:44px;height:44px;border-radius:50%;border:3px solid transparent;background:var(--g);color:var(--gt,#fff);display:grid;place-items:center;padding:0}
+.sw[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 2px var(--card) inset}
 .stepper button.plus.secondary{background:var(--bg);border-color:var(--line);color:var(--ink)}
-.row.done .stepper button.plus.secondary{border-color:var(--hab)}
+.row.done .stepper button.plus.secondary{border-color:var(--g,var(--hab))}
 .stepper button:disabled{opacity:.35}
-.cnt{min-width:46px;height:44px;text-align:center;font-size:1.2rem;font-weight:700;border:1px solid transparent;border-radius:10px;background:transparent;-moz-appearance:textfield}
+.cnt{min-width:40px;height:44px;text-align:center;font-size:1.2rem;font-weight:700;border:1px solid transparent;border-radius:10px;background:transparent;-moz-appearance:textfield}
 .cnt::-webkit-outer-spin-button,.cnt::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .cnt:focus{border-color:var(--line);background:var(--bg)}
 .empty{text-align:center;padding:28px 12px}
@@ -94,10 +123,10 @@ input.txt{width:100%;min-height:46px;border:1px solid var(--line);border-radius:
 .minrow{display:flex;align-items:center;gap:10px}
 .minrow output{font-size:1.2rem;font-weight:700;min-width:2ch;text-align:center}
 .minrow button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.4rem}
-.alist .item{display:flex;align-items:center;gap:6px;border-top:1px solid var(--line);min-height:56px}
+.alist .item{display:flex;align-items:center;gap:6px;border-top:1px solid var(--line);min-height:48px}
 .alist .item:first-child,.ghead+.item{border-top:0}
-.alist .item .main{flex:1;min-width:0;text-align:left;display:flex;align-items:center;gap:10px;background:none;border:0;padding:12px 0;min-height:56px}
-.alist .item .mv{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none}
+.alist .item .main{flex:1;min-width:0;text-align:left;display:flex;align-items:center;gap:10px;background:none;border:0;padding:6px 0;min-height:48px}
+.alist .item .mv{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none}
 .alist .item .mv:disabled{opacity:.3}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--hab);flex:none}
 .dot.bad{background:var(--bad)}
@@ -109,10 +138,11 @@ textarea.txt{width:100%;border:1px solid var(--line);border-radius:12px;padding:
 .qlog{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
 .row.rest .name{color:var(--muted)}
 .streak{display:inline-flex;align-items:center;gap:4px;font-size:.82rem;font-weight:600;color:var(--bad)}
-.notebtn{display:flex;align-items:center;gap:5px;background:none;border:0;padding:4px 0;min-height:32px;color:var(--muted);font-size:.85rem;max-width:100%;text-align:left}
+.notebtn{display:flex;align-items:center;gap:5px;background:none;border:0;padding:2px 0;min-height:26px;color:var(--muted);font-size:.82rem;max-width:100%;text-align:left}
+.notebtn.io{padding:2px 6px;min-height:28px;border-radius:8px}
 .notebtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .notebtn.has{color:var(--ink)}
-.notebtn.has svg{color:var(--hab)}
+.notebtn.has svg{color:var(--g,var(--hab))}
 .prog{display:flex;align-items:center;gap:14px}
 .prog .t{font-weight:650;font-size:1.05rem}
 .prog .s{font-size:.88rem;color:var(--muted)}
@@ -125,30 +155,31 @@ table.gt{border-collapse:separate;border-spacing:3px;width:100%}
 .gt th.today{color:var(--hab);text-decoration:underline}
 .gt th.rn{text-align:left;position:sticky;left:0;background:var(--card);z-index:1;width:74px;min-width:66px;max-width:84px;font-size:.8rem;color:var(--ink);padding-right:4px;overflow-wrap:break-word;hyphens:auto}
 .gt .gr th{text-align:left;font-size:.8rem;color:var(--muted);padding-top:8px}
-.gt .gr th span{display:inline-flex;align-items:center;gap:6px;position:sticky;left:0}
+.gt .gr th span{display:inline-flex;align-items:center;gap:6px;position:sticky;left:0;color:var(--g,var(--muted));font-weight:700}
 .gt td{padding:0;text-align:center}
 .gt td.sum{font-weight:700;font-size:.85rem;min-width:18px;padding-left:2px}
 .cell{width:100%;min-width:25px;height:36px;border-radius:7px;border:1.5px solid var(--line);background:transparent;display:grid;place-items:center;font-size:.74rem;font-weight:700;padding:0;position:relative;color:#fff}
 .gt.m .cell{min-width:24px;height:32px}
-.cell.done{background:var(--hab);border-color:var(--hab)}
-.cell.bad{background:var(--bad);border-color:var(--bad)}
-.cell.part{background:var(--hab-soft);border-color:var(--hab);color:var(--hab)}
+.cell.done{background:var(--g,var(--hab));border-color:var(--g,var(--hab))}
+.cell.bad{background:var(--g,var(--bad));border-color:var(--g,var(--bad))}
+.cell.part{background:var(--gs,var(--hab-soft));border-color:var(--g,var(--hab));color:var(--g,var(--hab))}
 .cell.none{color:transparent}
 .cell.rest{border-style:dashed;opacity:.5}
 .cell.na{border-color:transparent;background:repeating-linear-gradient(135deg,var(--line) 0 2px,transparent 2px 5px);opacity:.5;pointer-events:none}
 .cell.hasnote::after{content:"";position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--ink);border:1px solid var(--card)}
 .cell.sel{outline:3px solid var(--focus);outline-offset:1px}
-@media (prefers-color-scheme:dark){.cell.done{color:#062b27}.cell.bad{color:#2b1b00}}
+@media (prefers-color-scheme:dark){.cell.done{color:var(--gt,#062b27)}.cell.bad{color:var(--gt,#2b1b00)}}
+.cell.done,.cell.bad{color:var(--gt,#fff)}
 .ghead{display:flex;align-items:center;gap:8px;font-weight:650;font-size:.9rem;color:var(--muted);margin:14px 0 2px}
 .ghead .gc{margin-left:auto;font-weight:600;font-size:.82rem}
 .ghead svg{flex:none}
 .btn.sm{min-height:40px;padding:0 12px;font-size:.9rem}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips button{min-height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:flex;align-items:center;gap:6px;font-weight:600}
-.chips button[aria-pressed=true]{background:var(--hab-soft);border-color:var(--hab);color:var(--hab)}
+.chips button[aria-pressed=true]{background:var(--gs,var(--hab-soft));border-color:var(--g,var(--hab));color:var(--g,var(--hab))}
 .igrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .igrid button{min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid var(--line);border-radius:12px;background:var(--bg);font-size:.7rem;font-weight:600;color:var(--muted);padding:4px 2px}
-.igrid button[aria-pressed=true]{background:var(--hab-soft);border-color:var(--hab);color:var(--hab)}
+.igrid button[aria-pressed=true]{background:var(--gs,var(--hab-soft));border-color:var(--g,var(--hab));color:var(--g,var(--hab))}
 .ghd{display:flex;justify-content:space-between;align-items:center}
 .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .legend button{display:flex;align-items:center;gap:6px;min-height:40px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:.88rem;font-weight:600;max-width:100%}
@@ -195,7 +226,7 @@ let storageOK = true;
 let state = { v:1, activities:[], groups:[], logs:{}, notes:{}, meta:{ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, prefs:{ range:'week', kind:'bar' } };
 try {
   const raw = localStorage.getItem(KEY);
-  if (raw) { const p = JSON.parse(raw); if (p && Array.isArray(p.activities) && p.logs) state = Object.assign(state, p, { prefs: Object.assign(state.prefs, p.prefs||{}) }); if (!Array.isArray(state.groups)) state.groups = []; if (!state.notes || typeof state.notes !== 'object') state.notes = {}; state.meta = Object.assign({ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, state.meta || {}); }
+  if (raw) { const p = JSON.parse(raw); if (p && Array.isArray(p.activities) && p.logs) state = Object.assign(state, p, { prefs: Object.assign(state.prefs, p.prefs||{}) }); if (!Array.isArray(state.groups)) state.groups = []; if (!state.notes || typeof state.notes !== 'object') state.notes = {}; state.groups.forEach((g, i) => { if (!g.color) g.color = ['teal','blue','purple','pink','orange','green','red','slate'][i % 8]; }); state.meta = Object.assign({ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, state.meta || {}); }
 } catch(e) { storageOK = false; }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { storageOK = false; }
@@ -328,6 +359,8 @@ const GI = {
   sun:['Morgen','<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'],
   tree:['Ute','<path d="M12 21v-6M12 15c-4 0-6-2.5-6-5.5 0-2 1.5-3.5 3.5-3.5C9.5 4 11 3 12 3s2.5 1 2.5 3c2 0 3.5 1.5 3.5 3.5 0 3-2 5.5-6 5.5z"/>']
 };
+const COLORS = [{k:'teal',n:'Blågrønn'},{k:'blue',n:'Blå'},{k:'purple',n:'Lilla'},{k:'pink',n:'Rosa'},{k:'orange',n:'Oransje'},{k:'green',n:'Grønn'},{k:'red',n:'Rød'},{k:'slate',n:'Grå'}];
+const nextColor = () => (COLORS.find(c => !state.groups.some(g => g.color === c.k)) || COLORS[state.groups.length % COLORS.length]).k;
 const gicon = (k, sz = 20) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${(GI[k] || GI.star)[1]}</svg>`;
 
 /* ---------- Visninger ---------- */
@@ -373,41 +406,45 @@ function renderToday() {
       <div><div class="t">${reachedN === due.length ? 'Alt gjort ' + (isToday ? 'i dag' : 'denne dagen') : reachedN + ' av ' + due.length + ' vaner nådd'}</div>
       <div class="s">${reachedN === due.length ? 'Bra jobba!' : (due.length - reachedN) + ' igjen ' + (isToday ? 'i dag' : 'denne dagen')}</div></div></section>`;
   }
-  const gHead = (g, items) => {
-    if (!state.groups.length) return '';
-    const hab = items.length && items[0].type === 'habit';
-    const its = items.filter(a => isDue(a, day));
-    const cnt = hab && its.length ? `<span class="gc">${its.filter(a => getCount(a.id, day) >= a.target).length}/${its.length}</span>` : '';
-    return `<div class="ghead">${g ? gicon(g.icon) : ''}<span>${g ? esc(g.name) : 'Andre'}</span>${cnt}</div>`;
+  const noteIcon = a => noteOf(a.id, day) ? '' : `<button class="notebtn io" data-act="note" data-id="${a.id}" aria-label="Legg til notat for ${esc(a.name)}">${I.note}</button>`;
+  const noteLine = a => { const n = noteOf(a.id, day); return n ? `<button class="notebtn has" data-act="note" data-id="${a.id}" aria-label="Rediger notat for ${esc(a.name)}">${I.note}<span>${esc(n)}</span></button>` : ''; };
+  const habRow = a => {
+    const c = getCount(a.id, day), done = c >= a.target, s = sched(a), isWeek = s.mode === 'week', rest = !isWeek && !isDue(a, day);
+    const wk = isWeek ? weekCount(a, day) : 0;
+    let sub;
+    if (done) sub = I.check + ' Nådd'; else if (isWeek) sub = wk + ' av ' + s.n + ' denne uka'; else if (rest) sub = 'Hviledag'; else sub = 'Minst ' + a.target + (a.target>1?' ganger':' gang');
+    if (done && isWeek) sub += ' · ' + wk + ' av ' + s.n + ' denne uka';
+    if (c > a.target) sub += ' · ' + c + ' totalt';
+    let st = '';
+    if (isToday) { const k = streakOf(a); if (k.n >= 2) st = `<span class="streak">${I.flame} ${k.n} ${k.unit} på rad</span>`; }
+    return `<div class="row ${done?'done':''} ${rest?'rest':''}">
+      <div class="info"><div class="name qlog" data-id="${a.id}">${esc(a.name)}</div>
+      <div class="sub"><span style="display:inline-flex;align-items:center;gap:4px">${sub}</span>${st}${noteIcon(a)}</div>${noteLine(a)}</div>
+      ${stepper(a, c, done)}</div>`;
   };
-  const noteBtn = a => { const n = noteOf(a.id, day);
-    return `<button class="notebtn ${n?'has':''}" data-act="note" data-id="${a.id}" aria-label="${n ? 'Rediger notat for ' : 'Legg til notat for '}${esc(a.name)}">${I.note}<span>${n ? esc(n) : 'Notat'}</span></button>`; };
+  const badRow = a => {
+    const c = getCount(a.id, day);
+    let st = ''; if (isToday) { const w = daysWithout(a); if (w >= 1) st = `<span class="streak" style="color:var(--hab)">${I.check} ${w} ${w===1?'dag':'dager'} uten</span>`; }
+    return `<div class="row badrow"><div class="info"><div class="name qlog" data-id="${a.id}">${esc(a.name)}</div>
+      <div class="sub"><span>${c ? c + (c>1?' ganger':' gang') : 'Ingen'}</span>${st}${noteIcon(a)}</div>${noteLine(a)}</div>${stepper(a, c, false)}</div>`;
+  };
+  /* Ett kort per gruppe */
+  const cards = (list, rowFn, type) => grouped(list).map(({ g, items }) => {
+    let head = '';
+    if (state.groups.length) {
+      let cnt = '';
+      if (type === 'habit') { const its = items.filter(a => isDue(a, day)); if (its.length) cnt = `<span class="gcnt">${its.filter(a => getCount(a.id, day) >= a.target).length}/${its.length}</span>`; }
+      else { const t = items.reduce((n, a) => n + getCount(a.id, day), 0); if (t) cnt = `<span class="gcnt">${t}×</span>`; }
+      head = `<div class="gh">${g ? `<span class="ic">${gicon(g.icon, 20)}</span>` : ''}<span class="nm">${g ? esc(g.name) : 'Andre'}</span>${cnt}</div>`;
+    }
+    return `<section class="card ${g ? 'gcard gc-' + (g.color || 'teal') : ''}" aria-label="${g ? esc(g.name) : 'Andre'}">${head}${items.map(rowFn).join('')}</section>`;
+  }).join('');
   if (hs.length) {
-    h += `<section class="card" aria-labelledby="hh"><h2 id="hh">Vaner <span class="badge">${due.length ? reachedN + ' av ' + due.length + ' nådd' : 'ingen planlagt'}</span></h2>`;
-    h += grouped(hs).map(({ g, items }) => gHead(g, items) + items.map(a => {
-      const c = getCount(a.id, day), done = c >= a.target, s = sched(a), isWeek = s.mode === 'week', rest = !isWeek && !isDue(a, day);
-      const wk = isWeek ? weekCount(a, day) : 0;
-      let sub;
-      if (done) sub = I.check + ' Nådd'; else if (isWeek) sub = wk + ' av ' + s.n + ' denne uka'; else if (rest) sub = 'Hviledag'; else sub = 'Minst ' + a.target + (a.target>1?' ganger':' gang');
-      if (done && isWeek) sub += ' · ' + wk + ' av ' + s.n + ' denne uka';
-      if (c > a.target) sub += ' · ' + c + ' totalt';
-      let st = '';
-      if (isToday) { const k = streakOf(a); if (k.n >= 2) st = `<span class="streak">${I.flame} ${k.n} ${k.unit} på rad</span>`; }
-      return `<div class="row ${done?'done':''} ${rest?'rest':''}">
-        <div class="info"><div class="name qlog" data-id="${a.id}">${esc(a.name)}</div>
-        <div class="sub"><span style="display:inline-flex;align-items:center;gap:4px">${sub}</span>${st}</div>${noteBtn(a)}</div>
-        ${stepper(a, c, done)}</div>`;
-    }).join('')).join('') + `</section>`;
+    h += `<div class="sect"><h2 id="hh">Vaner</h2><span class="badge">${due.length ? reachedN + ' av ' + due.length + ' nådd' : 'ingen planlagt'}</span></div>` + cards(hs, habRow, 'habit');
   }
   if (bs.length) {
     const tot = bs.reduce((s,a) => s + getCount(a.id, day), 0);
-    h += `<section class="card" aria-labelledby="bh"><h2 id="bh">Uvaner <span class="badge bad">${tot} registrert</span></h2>`;
-    h += grouped(bs).map(({ g, items }) => gHead(g, items) + items.map(a => {
-      const c = getCount(a.id, day);
-      let st = ''; if (isToday) { const w = daysWithout(a); if (w >= 1) st = `<span class="streak" style="color:var(--hab)">${I.check} ${w} ${w===1?'dag':'dager'} uten</span>`; }
-      return `<div class="row badrow"><div class="info"><div class="name qlog" data-id="${a.id}">${esc(a.name)}</div>
-        <div class="sub"><span>${c ? c + (c>1?' ganger':' gang') : 'Ingen'}</span>${st}</div>${noteBtn(a)}</div>${stepper(a, c, false)}</div>`;
-    }).join('')).join('') + `</section>`;
+    h += `<div class="sect"><h2 id="bh">Uvaner</h2><span class="badge bad">${tot} registrert</span></div>` + cards(bs, badRow, 'bad');
   }
   h += `<p class="hint">Tips: dobbelttrykk eller hold inne på et navn for +1. Sveip sideveis for å bytte dag.</p>`;
   return h;
@@ -557,7 +594,7 @@ function renderTrends() {
         + days.map(d => { const dt = parse(d); return `<th scope="col" class="${d === today ? 'today' : ''}">${month ? '' : DAYS3[dt.getDay()] + '<br>'}${dt.getDate()}</th>`; }).join('')
         + `<th scope="col" title="${bad ? 'Antall ganger' : 'Dager oppnådd'}">${bad ? 'Σ' : '✓'}</th></tr></thead><tbody>`;
       grouped(list).forEach(({ g, items }) => {
-        if (state.groups.length) h += `<tr class="gr"><th colspan="${days.length + 2}" scope="colgroup"><span>${g ? gicon(g.icon, 16) : ''}${g ? esc(g.name) : 'Andre'}</span></th></tr>`;
+        if (state.groups.length) h += `<tr class="gr ${g ? 'gc-' + (g.color || 'teal') : ''}"><th colspan="${days.length + 2}" scope="colgroup"><span>${g ? gicon(g.icon, 16) : ''}${g ? esc(g.name) : 'Andre'}</span></th></tr>`;
         items.forEach(a => {
           let sum = 0;
           const cells = days.map(d => {
@@ -568,7 +605,7 @@ function renderTrends() {
             else if (ci.st === 'part') inner = month ? '' : ci.c;
             return `<td><button class="cell ${ci.st} ${noteOf(a.id, d) ? 'hasnote' : ''}" data-act="gcell" data-id="${a.id}" data-d="${d}" aria-label="${esc(a.name)}, ${esc(shortDate(d))}: ${esc(statusText(a, d))}${noteOf(a.id, d) ? ', har notat' : ''}" ${ci.st === 'na' ? 'tabindex="-1" aria-disabled="true"' : ''}>${inner}</button></td>`;
           }).join('');
-          h += `<tr><th class="rn" scope="row">${esc(a.name)}${a.archived ? ' <span class="muted">(arkivert)</span>' : ''}</th>${cells}<td class="sum">${sum}</td></tr>`;
+          h += `<tr class="${g ? 'gc-' + (g.color || 'teal') : ''}"><th class="rn" scope="row">${esc(a.name)}${a.archived ? ' <span class="muted">(arkivert)</span>' : ''}</th>${cells}<td class="sum">${sum}</td></tr>`;
         });
       });
       h += `</tbody></table></div><div class="cap" id="cap-g-${type}" aria-live="polite" style="margin-top:8px"><span class="muted">Trykk på en rute for detaljer.</span></div></section>`;
@@ -652,21 +689,23 @@ function renderActs() {
     <span style="flex:1;overflow-wrap:anywhere"><b>${esc(a.name)}</b> ${a.type==='habit' ? `<span class="muted"> · minst ${a.target}×/dag${schedText(a)}</span>` : ''}</span></button>
     <button class="mv" data-act="move" data-id="${a.id}" data-d="-1" aria-label="Flytt opp: ${esc(a.name)}" ${i===0?'disabled':''}>${arrow(-1)}</button>
     <button class="mv" data-act="move" data-id="${a.id}" data-d="1" aria-label="Flytt ned: ${esc(a.name)}" ${i===list.length-1?'disabled':''}>${arrow(1)}</button></div>`;
-  const gHead = g => state.groups.length ? `<div class="ghead">${g ? gicon(g.icon) : ''}<span>${g ? esc(g.name) : 'Andre'}</span></div>` : '';
   const sect = (type, none) => {
     const list = live(type);
-    if (!list.length) return `<p class="muted">${none}</p>`;
-    return grouped(list).map(({ g, items }) => gHead(g) + items.map((a, i) => item(a, i, items)).join('')).join('');
+    if (!list.length) return `<section class="card"><p class="muted" style="margin:0">${none}</p></section>`;
+    return grouped(list).map(({ g, items }) => {
+      const head = state.groups.length ? `<div class="gh">${g ? `<span class="ic">${gicon(g.icon, 20)}</span>` : ''}<span class="nm">${g ? esc(g.name) : 'Andre'}</span></div>` : '';
+      return `<section class="card ${g ? 'gcard gc-' + (g.color || 'teal') : ''}" aria-label="${g ? esc(g.name) : 'Andre'}">${head}<div class="alist">${items.map((a, i) => item(a, i, items)).join('')}</div></section>`;
+    }).join('');
   };
   let h = `<div class="top"><h1>Aktiviteter</h1><button class="btn primary" data-act="newact">+ Ny</button></div>`;
   if (!storageOK) h += `<div class="warn" role="alert">Nettleseren tillater ikke lagring. Data blir borte når du lukker appen.</div>`;
-  h += `<section class="card"><h2>Vaner</h2><div class="alist">${sect('habit', 'Ingen vaner.')}</div></section>`;
-  h += `<section class="card"><h2>Uvaner</h2><div class="alist">${sect('bad', 'Ingen uvaner.')}</div></section>`;
+  h += `<div class="sect"><h2>Vaner</h2></div>${sect('habit', 'Ingen vaner.')}`;
+  h += `<div class="sect"><h2>Uvaner</h2></div>${sect('bad', 'Ingen uvaner.')}`;
   h += `<section class="card"><div class="ghd"><h2 style="margin:0">Grupper</h2><button class="btn sm" data-act="gnew">+ Ny gruppe</button></div>`;
   if (!state.groups.length) h += `<p class="note">Samle aktiviteter i grupper, for eksempel «Mosjon» eller «Hjemme», og velg et ikon til hver gruppe.</p>`;
   else h += `<div class="alist" style="margin-top:6px">` + state.groups.map((g, i) => {
     const n = state.activities.filter(a => a.group === g.id && !a.archived).length;
-    return `<div class="item"><button class="main" data-act="gedit" data-id="${g.id}" aria-label="Rediger gruppen ${esc(g.name)}"><span style="color:var(--hab);display:grid">${gicon(g.icon, 24)}</span>
+    return `<div class="item"><button class="main" data-act="gedit" data-id="${g.id}" aria-label="Rediger gruppen ${esc(g.name)}"><span class="ic gc-${g.color || 'teal'}">${gicon(g.icon, 20)}</span>
       <span style="flex:1;overflow-wrap:anywhere"><b>${esc(g.name)}</b><span class="muted"> · ${n} aktivitet${n===1?'':'er'}</span></span></button>
       <button class="mv" data-act="gmove" data-id="${g.id}" data-d="-1" aria-label="Flytt gruppen opp: ${esc(g.name)}" ${i===0?'disabled':''}>${arrow(-1)}</button>
       <button class="mv" data-act="gmove" data-id="${g.id}" data-d="1" aria-label="Flytt gruppen ned: ${esc(g.name)}" ${i===state.groups.length-1?'disabled':''}>${arrow(1)}</button></div>`;
@@ -682,7 +721,7 @@ function renderActs() {
     <label class="f" for="rtime">Klokkeslett</label><input id="rtime" class="txt" type="time" value="${esc(state.meta.remindTime || '20:00')}">
     <button class="btn block" style="margin-top:10px" data-act="ics">Legg til i kalender</button></section>`;
   h += `<section class="card"><h2>Sikkerhetskopi</h2>
-    <p class="note" style="margin-top:0">Appversjon 9. Alt lagres kun i denne nettleseren på denne enheten. Tømmer du nettleserdata, forsvinner loggen. ${state.meta.lastBackup ? 'Sist sikkerhetskopi: ' + esc(shortDate(state.meta.lastBackup)) + '.' : 'Du har ikke tatt sikkerhetskopi ennå.'}</p>
+    <p class="note" style="margin-top:0">Appversjon 12. Alt lagres kun i denne nettleseren på denne enheten. Tømmer du nettleserdata, forsvinner loggen. ${state.meta.lastBackup ? 'Sist sikkerhetskopi: ' + esc(shortDate(state.meta.lastBackup)) + '.' : 'Du har ikke tatt sikkerhetskopi ennå.'}</p>
     <div style="margin-top:12px"><button class="btn block" data-act="export">Lagre sikkerhetskopi</button>
     <button class="btn block" data-act="import">Gjenopprett fra fil</button></div></section>`;
   return h;
@@ -715,7 +754,7 @@ function renderSheet() {
         <p class="note">Ukemål-vaner teller ikke i dagsprosenten. Du får en rekke i antall uker der målet er nådd.</p>` : ''}`; })() : ''}
     ${state.groups.length ? `<label class="f" id="lg">Gruppe</label><div class="chips" role="group" aria-labelledby="lg">
       <button data-act="egroup" data-g="" aria-pressed="${!e.group}">Ingen</button>
-      ${state.groups.map(g => `<button data-act="egroup" data-g="${g.id}" aria-pressed="${e.group === g.id}">${gicon(g.icon, 18)} ${esc(g.name)}</button>`).join('')}</div>` : ''}
+      ${state.groups.map(g => `<button class="gc-${g.color || 'teal'}" data-act="egroup" data-g="${g.id}" aria-pressed="${e.group === g.id}">${gicon(g.icon, 18)} ${esc(g.name)}</button>`).join('')}</div>` : ''}
     ${e.err ? `<p class="note" style="color:var(--danger)" role="alert">${esc(e.err)}</p>` : ''}
     <div style="margin-top:16px">
       <button class="btn primary block" data-act="esave">Lagre</button>
@@ -746,8 +785,10 @@ function renderGroupSheet() {
     <h2 id="gh">${g.id ? 'Rediger gruppe' : 'Ny gruppe'}</h2>
     <label class="f" for="g-name">Navn på gruppen</label>
     <input id="g-name" class="txt" type="text" maxlength="40" value="${esc(g.name)}" placeholder="F.eks. Mosjon" autocomplete="off">
+    <label class="f" id="lc">Farge</label>
+    <div class="swatches" role="group" aria-labelledby="lc">${COLORS.map(c => `<button class="sw gc-${c.k}" data-act="gcolor" data-c="${c.k}" aria-pressed="${g.color === c.k}" aria-label="${c.n}">${g.color === c.k ? I.check : ''}</button>`).join('')}</div>
     <label class="f" id="li">Ikon</label>
-    <div class="igrid" role="group" aria-labelledby="li">${Object.keys(GI).map(k =>
+    <div class="igrid gc-${g.color}" role="group" aria-labelledby="li">${Object.keys(GI).map(k =>
       `<button data-act="gicon" data-i="${k}" aria-pressed="${g.icon === k}" aria-label="${GI[k][0]}">${gicon(k, 24)}<span>${GI[k][0]}</span></button>`).join('')}</div>
     ${g.err ? `<p class="note" style="color:var(--danger)" role="alert">${esc(g.err)}</p>` : ''}
     <div style="margin-top:16px">
@@ -878,15 +919,16 @@ document.addEventListener('click', ev => {
       toast('«' + a.name + '» er gjenopprettet');
       break; }
     case 'egroup': syncName(); ui.edit.group = el.dataset.g || null; render(); break;
-    case 'gnew': ui.gedit = { id:null, name:'', icon:'star' }; render(); break;
-    case 'gedit': { const g = state.groups.find(x => x.id === id); ui.gedit = { id:g.id, name:g.name, icon:g.icon }; render(); break; }
+    case 'gnew': ui.gedit = { id:null, name:'', icon:'star', color:nextColor() }; render(); break;
+    case 'gcolor': syncG(); ui.gedit.color = el.dataset.c; render(); break;
+    case 'gedit': { const g = state.groups.find(x => x.id === id); ui.gedit = { id:g.id, name:g.name, icon:g.icon, color:g.color || 'teal' }; render(); break; }
     case 'gicon': syncG(); ui.gedit.icon = el.dataset.i; render(); break;
     case 'closeg': if (el.classList.contains('overlay') && ev.target !== el) break; ui.gedit = null; render(); break;
     case 'gsave': {
       syncG(); const g = ui.gedit, name = g.name.trim();
       if (!name) { g.err = 'Skriv inn et navn.'; render(); break; }
-      if (g.id) { const x = state.groups.find(y => y.id === g.id); x.name = name; x.icon = g.icon; }
-      else state.groups.push({ id: uid(), name, icon: g.icon });
+      if (g.id) { const x = state.groups.find(y => y.id === g.id); x.name = name; x.icon = g.icon; x.color = g.color; }
+      else state.groups.push({ id: uid(), name, icon: g.icon, color: g.color });
       save(); ui.gedit = null; render(); break; }
     case 'gdeleteask': syncG(); ui.gedit.confirm = true; render(); break;
     case 'gdelete': {
@@ -953,7 +995,7 @@ document.addEventListener('change', ev => {
         const p = JSON.parse(r.result);
         if (!p || !Array.isArray(p.activities) || typeof p.logs !== 'object') throw 0;
         if (!confirm('Dette erstatter all eksisterende data i appen. Fortsette?')) return;
-        state = { v:1, activities:p.activities, groups:Array.isArray(p.groups) ? p.groups : [], notes:(p.notes && typeof p.notes === 'object') ? p.notes : {}, meta:Object.assign({ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, p.meta || {}), logs:p.logs, prefs:Object.assign({range:'week',kind:'bar'}, p.prefs||{}) };
+        state = { v:1, activities:p.activities, groups:Array.isArray(p.groups) ? p.groups.map((g, i) => Object.assign({ color: COLORS[i % COLORS.length].k }, g)) : [], notes:(p.notes && typeof p.notes === 'object') ? p.notes : {}, meta:Object.assign({ lastBackup:null, snoozeUntil:null, remindTime:'20:00' }, p.meta || {}), logs:p.logs, prefs:Object.assign({range:'week',kind:'bar'}, p.prefs||{}) };
         save(); ui.offset = 0; render(); toast('Sikkerhetskopi gjenopprettet');
       } catch(e) { alert('Filen ser ikke ut som en gyldig sikkerhetskopi fra Vanelogg.'); }
     };
